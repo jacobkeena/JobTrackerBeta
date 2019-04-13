@@ -1,0 +1,49 @@
+﻿
+
+
+************************************************
+TO DO:
+
+
+
+
+
+
+- also should really consider using stored procedures. writing this all is annoying
+                          
+
+
+*************************************************
+IN PROGRESS:
+
+- create edit page as a duplicate of viewjobs.xaml. Create with textboxes / comboboxes where user can update info                
+
+
+              
+
+
+
+
+
+**************************************************
+FINISHED:
+
+- fix LocationId mix up. Its displaying largestcity and capital for the wrong states
+- finish taking out static classes
+
+- when adding things to the database, should I assign them to a property and pass the property? or just pass the variable?
+(position is a table with only an identifier column and description column)
+
+-recruiter table is messed up for some reason.
+also is returning null recruiterID throwing off the job selection?
+once get all jobs can return recruiterid (if it exists) it should fix my FillLinkedRecruiter method
+
+
+**************************************************
+COOL FUNCTIONALITY IDEAS:
+
+- Add spacebar selection
+
+- Add "go to browser" link in link error message box 
+
+- @@identityscope - use to return ID of last added value to DB - used with adding recruiter

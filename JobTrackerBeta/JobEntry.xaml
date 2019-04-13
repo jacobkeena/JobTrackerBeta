@@ -1,0 +1,115 @@
+﻿<Page x:Class="JobTrackerBeta.JobEntry"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:JobTrackerBeta"
+      mc:Ignorable="d" 
+      MinHeight="400" MinWidth="700"
+      Title="JobEntry">
+  
+  <Border BorderBrush="Black" Background="White" BorderThickness="2">
+    <Grid Margin="10">
+      <Grid.RowDefinitions>
+        <RowDefinition Height = "50" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+
+      </Grid.RowDefinitions>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width = "*" />
+        <ColumnDefinition Width = "*" />
+        <ColumnDefinition Width = "*" />
+
+      </Grid.ColumnDefinitions>
+
+      <Label Content="New Job Entry" FontSize="15" FontWeight="Bold" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+
+      <Label Content="Job Information" FontSize="13" FontWeight="Bold" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+      <StackPanel Grid.Column = "0" Grid.Row = "1" Orientation = "Horizontal">
+        <Label Content = "Company Name"  VerticalAlignment = "Center" Width = "100"/>
+        <TextBox x:Name = "txtCompanyName" Style="{DynamicResource OneLineTextBox}">
+        </TextBox>
+      </StackPanel>
+      <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+        <Label Content="Salary Range" VerticalAlignment="Center" Width="100"/>
+        <TextBox x:Name="txtSalary" Style="{DynamicResource OneLineTextBox}"/>
+      </StackPanel>
+      <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+        <Label Content="Position" VerticalAlignment="Center" Width="55" />
+        <ComboBox VerticalAlignment="Center" Name="boxPosition" Width="130" Height="18" DropDownOpened="PositionBox_Loaded" SelectionChanged="PositionBox_Changed"  FontSize="9">
+        </ComboBox>
+      </StackPanel>
+      <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+        <Label Content="Location" VerticalAlignment="Center" Width="55" />
+        <ComboBox VerticalAlignment="Center" Name="boxLocation" Width="130" Height="18" DropDownOpened="LocationBox_Loaded" SelectionChanged="LocationBox_Changed"  FontSize="9">
+        </ComboBox>
+      </StackPanel>
+      <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" >
+        <Label Content="Job Link" VerticalAlignment="Center" Width="55" />
+        <TextBox x:Name="txtJobLink" Style="{DynamicResource OneLineTextBox}" />
+      </StackPanel>
+      <StackPanel Grid.Column="1" Grid.Row="5" Grid.RowSpan="2" Orientation="Horizontal" >
+        <Label Content="Comments" VerticalAlignment="Top" />
+        <TextBox x:Name="txtComments" Style="{DynamicResource WrappedTextBox}"/>
+      </StackPanel>
+     
+      <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+        <Label Content="Rating" VerticalAlignment="Center" Width="100" />
+        <ComboBox VerticalAlignment="Center" Name="boxRating" Width="130" Height="18" Loaded="RatingBox_Loaded" FontSize="9">
+        </ComboBox>
+      </StackPanel>
+      <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">
+        <Label Content="CEO Name" VerticalAlignment="Center" Width="100" />
+        <TextBox x:Name="txtCEO" Style="{DynamicResource OneLineTextBox}" />
+      </StackPanel>
+      <StackPanel Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" Orientation="Horizontal">
+        <Label VerticalAlignment="Top">
+          <TextBlock TextWrapping="Wrap" Width="55">Mission Statement</TextBlock>
+        </Label>
+        <TextBox x:Name="txtMissionStatement" Style="{DynamicResource WrappedTextBox}"/>
+      </StackPanel>
+      <StackPanel Grid.Column="0" Grid.Row="7" Grid.RowSpan="2"  Orientation="Horizontal">
+        <Label Content="Benefits" VerticalAlignment="Top" Width="66"/>
+        <TextBox x:Name="txtBenefits" Style="{DynamicResource WrappedTextBox}"/>
+      </StackPanel>
+      <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
+        <Label Content="Recruiter Information" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="13"/>
+        <Label Content="(Optional)" FontSize="10" VerticalAlignment="Bottom" Foreground="Gray"/>
+      </StackPanel>
+      <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
+        <Label Content="Name" VerticalAlignment="Center" Width="54" />
+        <TextBox x:Name="txtRecruiterName" Style="{DynamicResource OneLineTextBox}"/>
+      </StackPanel>
+      <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal">
+        <Label Content="Email" VerticalAlignment="Center" Width="54"/>
+        <TextBox Name="txtRecruiterEmail" Style="{DynamicResource OneLineTextBox}" />
+      </StackPanel>
+      <StackPanel Grid.Column="2" Grid.Row="3" Orientation="Horizontal">
+        <Label VerticalAlignment="Top">
+          <TextBlock TextWrapping="Wrap" FontSize="10" Width="45">Phone Number</TextBlock>
+        </Label>
+        <TextBox Name="txtRecruiterPhoneNumber" Style="{DynamicResource OneLineTextBox}" />
+      </StackPanel>
+      <StackPanel Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Orientation="Horizontal">
+        <Label Content="LinkedIn:" VerticalAlignment="Top" Width="54" FontSize="11"/>
+        <TextBox x:Name="txtLinkedIn" Style="{DynamicResource WrappedTextBox}"/>
+      </StackPanel>
+      <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+        <TextBlock Name="canceledMessage" Text="Canceled: Last submission was not saved" Foreground="Red" FontWeight="Bold" VerticalAlignment="Center"/>
+      </StackPanel>
+      <StackPanel Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="3" Orientation="Vertical">
+        <Button Style="{DynamicResource MyButtonStyle}" Content="Submit" FontSize="15" Click="Click_SubmitButton">
+        </Button>
+      </StackPanel>
+    </Grid>
+  </Border>
+</Page>

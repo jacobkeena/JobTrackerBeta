@@ -1,0 +1,80 @@
+﻿<Page x:Class="JobTrackerBeta.LocationEntry"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:JobTrackerBeta"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LocationEntry"
+  MinHeight="400" MinWidth="700">
+
+  <Border BorderBrush="Black" Background="White" BorderThickness="2">
+    <Grid Margin="10">
+      <Grid.RowDefinitions>
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+        <RowDefinition Height = "*" />
+      </Grid.RowDefinitions>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width = "*" />
+        <ColumnDefinition Width = "*" />
+      </Grid.ColumnDefinitions>
+
+      <Label Content = "New Location" FontSize = "15"
+         FontWeight = "Bold" Grid.Column = "0" Grid.Row = "0"/>
+
+      <StackPanel Grid.Column = "0" Grid.Row = "1" Orientation = "Horizontal">
+        <Label Content = "City"  VerticalAlignment = "Center" Width = "70"/>
+        <TextBox Name = "txtCity" VerticalAlignment = "Center"
+            Width = "200">
+        </TextBox>
+      </StackPanel>
+
+      <StackPanel Grid.Column = "0" Grid.Row = "2" Orientation = "Horizontal">
+        <Label Content = "State" VerticalAlignment = "Center" Width = "70"/>
+        <ComboBox VerticalAlignment="Center" Name="boxState" Width="130" Height="18" FontSize="9" IsEditable="True" Loaded="boxState_Loaded">
+        </ComboBox>
+      </StackPanel>
+
+      <DockPanel Grid.Column = "0" Grid.Row = "3">
+        <Grid Margin="0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height = "*" />
+          </Grid.RowDefinitions>
+
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "*" />
+            <ColumnDefinition Width = "*" />
+          </Grid.ColumnDefinitions>
+          <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+            <Label Content = "Rating" VerticalAlignment = "Center" Width = "70"/>
+            <TextBox Name = "txtRating" VerticalAlignment = "Center"
+            Width = "50" IsMouseCaptureWithinChanged="RatingBox_Clicked" LostFocus="RatingBox_Unselected"/>
+          </StackPanel>
+          <StackPanel Name="ratingChart" Grid.Column="1" Grid.Row="0" Orientation="Vertical">
+            <TextBlock Text="Last resort: 0-2" />
+            <TextBlock Text="Ehh there's better: 3-5" />
+            <TextBlock Text="Pretty nice, could do better: 6-8" />
+            <TextBlock Text="Doesn't get much better: 9-10" />
+          </StackPanel>
+        </Grid>
+      </DockPanel>
+
+      <StackPanel Grid.Column = "0" Grid.Row = "4" Orientation = "Horizontal">
+        <Label Content = "Notes" VerticalAlignment = "Center" Width = "70"/>
+        <TextBox Name = "txtNotes" VerticalAlignment = "Center"
+            Style="{DynamicResource WrappedTextBox}" Width="200"/>
+      </StackPanel>
+      <Canvas Grid.Column="1" Grid.Row="1">
+        <TextBlock Text="Canceled: New location was not saved" FontWeight="Bold" Foreground="Red" Margin="90,40" Name="canceledMessage" />
+      </Canvas>
+      <DockPanel Grid.Column="1" Grid.Row="2">
+        <Button Style="{DynamicResource MyButtonStyle}" Content="Submit" Click="Click_SubmitButton"/>
+      </DockPanel>
+    </Grid>
+  </Border>
+</Page>

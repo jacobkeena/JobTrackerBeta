@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobTrackerBeta", "JobTrackerBeta\JobTrackerBeta.csproj", "{8905F9DD-0D45-43B0-812B-BF1E1C6A85C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearchLibrary", "JobSearchLibrary\JobSearchLibrary.csproj", "{2ED1240C-E736-4DE0-9C2F-9AC8F5ADC63A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8905F9DD-0D45-43B0-812B-BF1E1C6A85C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8905F9DD-0D45-43B0-812B-BF1E1C6A85C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8905F9DD-0D45-43B0-812B-BF1E1C6A85C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8905F9DD-0D45-43B0-812B-BF1E1C6A85C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ED1240C-E736-4DE0-9C2F-9AC8F5ADC63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ED1240C-E736-4DE0-9C2F-9AC8F5ADC63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ED1240C-E736-4DE0-9C2F-9AC8F5ADC63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ED1240C-E736-4DE0-9C2F-9AC8F5ADC63A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AF169F12-AD6E-4702-9819-859C5A70BF38}
+	EndGlobalSection
+EndGlobal
