@@ -24,5 +24,10 @@ namespace JobTrackerBeta
         {
             InitializeComponent();
         }
+
+        private void Click_SubmitButton(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
