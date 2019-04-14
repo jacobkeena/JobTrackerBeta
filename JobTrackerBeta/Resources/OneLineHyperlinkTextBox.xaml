@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:JobTrackerBeta.Resources">
+
+  <Style TargetType="TextBox" x:Key="OneLineHyperlinkTextBox">
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding HasValidURI}" Value="True">
+        <Setter Property="TextDecorations" Value="Underline"/>
+        <Setter Property="Foreground" Value="#FF2A6DCD"/>
+      </DataTrigger>
+    </Style.Triggers>
+    <Setter Property="Width" Value="auto" />
+    <Setter Property="Height" Value="19" />
+    <Setter Property="MaxWidth" Value="300" />
+    <Setter Property="MinWidth" Value="60" />
+    <Setter Property="Margin" Value="0,0,20,0" />
+  </Style>
+
+</ResourceDictionary>

@@ -9,6 +9,10 @@
         <ResourceDictionary Source="MyButtonStyle.xaml"/>
         <ResourceDictionary Source="OneLineTextBox.xaml"/>
         <ResourceDictionary Source="WrappedTextBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/JobTrackerBeta;component/Resources/OneLineTextBoxDynamic.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/JobTrackerBeta;component/Resources/WrappedTextBoxDynamic.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/JobTrackerBeta;component/Resources/WrappedHyperlinkTextBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/JobTrackerBeta;component/Resources/OneLineHyperlinkTextBox.xaml"/>
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>

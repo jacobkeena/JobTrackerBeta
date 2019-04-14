@@ -12,7 +12,7 @@ using JobTrackerBeta.ViewModel;
 
 namespace JobTrackerBeta.ViewModel
 {
-    class JobsModel : INotifyPropertyChanged
+    public class JobsModel : INotifyPropertyChanged
     {
         public JobsModel()
         {

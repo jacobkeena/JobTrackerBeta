@@ -9,6 +9,7 @@
       Title="ViewJobs">
 
 
+
   <Border BorderBrush="Black" Background="White" BorderThickness="2">
     <Grid Margin="10">
       <Grid.RowDefinitions>
@@ -23,26 +24,26 @@
       </Grid.ColumnDefinitions>
       <Label Content="View Jobs" FontSize="15" FontWeight="Bold" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" />
       <Grid Grid.Row="0" Grid.Column="1" Name="submitOptionsGrid">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition />
-          </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition/>
+          <ColumnDefinition/>
+          <ColumnDefinition/>
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
         <Button Content="Edit" Name="editButton" Style="{DynamicResource MyButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4" Width="90" Click="Click_EditButton" Visibility="Hidden"/>
         <Button Content="Submit" Name="submitButton" Style="{DynamicResource MyButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" Width="90" Click="Click_SubmitButton"/>
         <Border BorderThickness="1" BorderBrush="DarkRed" Name="deleteButton">
-          <Button Content="Delete" Style="{DynamicResource MyButtonStyle}" Foreground="DarkRed" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="90" Click="Click_SubmitButton">
-        </Button>
+          <Button Content="Delete" Style="{DynamicResource MyButtonStyle}" Foreground="DarkRed" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="90" Click="Click_DeleteButton">
+          </Button>
         </Border>
         <Button Content="Cancel" Name="cancelButton" Style="{DynamicResource MyButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="4" Width="90" Click="Click_CancelButton"/>
       </Grid>
-      
+
 
       <Grid Grid.Column="0" Grid.Row="1" Margin="10">
-        <Grid.RowDefinitions> 
+        <Grid.RowDefinitions>
           <RowDefinition Height="10*" />
           <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
@@ -61,6 +62,8 @@
               <ColumnDefinition Width="50*" />
             </Grid.ColumnDefinitions>
 
+
+
             <Grid Grid.Column="0" Grid.Row="0" x:Name="FillJobInfo">
               <Grid.RowDefinitions>
                 <RowDefinition Height="12.5*" />
@@ -77,34 +80,30 @@
               <StackPanel Grid.Row="0" Orientation="Horizontal" Background="White" Name="changePageHeader" Visibility="Hidden">
                 <TextBlock Text="Edit Job Information" Margin="3,3,0,0" FontWeight="Bold"/>
               </StackPanel>
-              <StackPanel Grid.Row="1" Orientation="Horizontal">
+              <DockPanel Grid.Row="1" LastChildFill="True">
                 <Label Content="Company Name:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding CompanyName}" Name="companyNameBlock" VerticalAlignment="Center" />
-              </StackPanel>
-              <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBox Name="companyNameBox" Style="{DynamicResource OneLineTextBoxDynamic}"/>
+              </DockPanel>
+              <DockPanel Grid.Row="2" LastChildFill="True">
                 <Label Content="Position:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding Position}" Name="positionBlock" VerticalAlignment="Center" />
-              </StackPanel>
-
-              <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <TextBox Style="{DynamicResource OneLineTextBoxDynamic}" Name="positionBox"/>
+              </DockPanel>
+              <DockPanel Grid.Row="3" LastChildFill="True">
                 <Label Content="Salary Range:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding SalaryRange}" Name="salaryBlock" VerticalAlignment="Center" />
-              </StackPanel>
-              <StackPanel Grid.Row="4" Orientation="Horizontal">
+                <TextBox Style="{DynamicResource OneLineTextBoxDynamic}" Name="salaryBox" />
+              </DockPanel>
+              <DockPanel Grid.Row="4" LastChildFill="True">
                 <Label Content="Rating:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding Rating}" Name="ratingBlock" VerticalAlignment="Center" />
-              </StackPanel>
-              <StackPanel Grid.Row="5" Orientation="Horizontal">
+                <TextBox Style="{DynamicResource OneLineTextBoxDynamic}" Name="ratingBox" />
+              </DockPanel>
+              <DockPanel Grid.Row="5" LastChildFill="True">
                 <Label Content="CEO Name:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding CEOName}" Name="ceoNameBlock" VerticalAlignment="Center" />
-              </StackPanel>
-
-
-              <StackPanel Grid.Row="6" Orientation="Horizontal">
+                <TextBox Style="{DynamicResource OneLineTextBoxDynamic}" VerticalAlignment="Center" Name="ceoNameBox" />
+              </DockPanel>
+              <DockPanel Grid.Row="6" LastChildFill="True">
                 <Label Content="Comments:" FontWeight="DemiBold" VerticalAlignment="Top"/>
-                <TextBlock Text="{Binding Comments}" Name="commentsBlock" VerticalAlignment="Top" Margin="0,5"/>
-              </StackPanel>
-
+                <TextBox Style="{DynamicResource WrappedTextBoxDynamic}" Name="commentsBox" />
+              </DockPanel>
             </Grid>
 
             <Grid Grid.Row="0" Grid.Column="1" >
@@ -113,24 +112,21 @@
                 <RowDefinition />
                 <RowDefinition />
               </Grid.RowDefinitions>
-              <StackPanel Grid.Row="0" Orientation="Vertical">
-                <Label Content="Mission Statement:" FontWeight="DemiBold" VerticalAlignment="Top"/>
-                <TextBlock Text="{Binding MissionStatement}" Name="missionStatementBlock" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-              </StackPanel>
-              <StackPanel Grid.Row="1" Orientation="Vertical">
-                <Label Content="Benefits:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <TextBlock Name="benefitsBlock" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-              </StackPanel>
-              <StackPanel Grid.Row="2" Orientation="Vertical">
-                <Label Content="Job Link:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap">
-                  <Hyperlink Name="link" NavigateUri="" RequestNavigate="Hyperlink_Requested">
-          <Run Name="runBox"/>
-                  </Hyperlink>
-                </TextBlock>
-              </StackPanel>
+              <DockPanel Grid.Row="0" LastChildFill="True">
+                <Label Content="Mission:" FontWeight="DemiBold" VerticalAlignment="Top"/>
+                <TextBox Style="{DynamicResource WrappedTextBoxDynamic}" Name="missionStatementBox"/>
+              </DockPanel>
+              <DockPanel Grid.Row="1" LastChildFill="True">
+                <Label Content="Benefits:" FontWeight="DemiBold" VerticalAlignment="Top"/>
+                <TextBox Style="{DynamicResource WrappedTextBoxDynamic}" Name="benefitsBox"/>
+              </DockPanel>
+              <DockPanel Grid.Row="2" LastChildFill="True">
+                <Label Content="Job Link:" FontWeight="DemiBold" VerticalAlignment="Top"/>
+                <TextBox TextChanged="TextBox_TextChanged" MouseDoubleClick="TextBox_MouseDoubleClick" Name="runLinkBox" Style="{DynamicResource WrappedHyperlinkTextBox}">
+                </TextBox>
+              </DockPanel>
 
-              
+
             </Grid>
 
             <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
@@ -138,85 +134,83 @@
                 <ColumnDefinition Width="60*" />
                 <ColumnDefinition Width="40*" />
               </Grid.ColumnDefinitions>
-            
-            <Grid Grid.Row="1" Grid.Column="0" >
-              <Grid.RowDefinitions>
-                <RowDefinition Height="9*" />
-                <RowDefinition Height="18*"/>
-                <RowDefinition Height="18*"/>
-                <RowDefinition Height="18*"/>
-                <RowDefinition Height="18*"/>
-              </Grid.RowDefinitions>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-              </Grid.ColumnDefinitions>
 
-              <DockPanel Grid.Row="0" Grid.Column="0">
-                <TextBlock FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Location Info" />
-              </DockPanel>
-              <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                <Label Content="City:" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Center" FontSize="10" Margin="0,0,6,0"/>
-                <TextBlock Name="cityBlock" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-              </StackPanel>
-              <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-                <Label Content="State:" VerticalAlignment="Center" FontWeight="Bold" FontSize="10"/>
-                <TextBlock Name="stateBlock" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-              </StackPanel>
-              <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                <Label Content="City Rating:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,6,0" FontWeight="Bold" FontSize="10"/>
-                <TextBlock Name="cityRatingBlock" VerticalAlignment="Center" HorizontalAlignment="Center" />
-              </StackPanel>
-              <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical">
-                <Label Content="Notes:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4,0,-7" FontWeight="Bold" FontSize="9"/>
-                <TextBox Name="notesBlock" VerticalAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="5,0,0,0" Width="320"/>
-              </StackPanel>
-              <DockPanel Grid.Row="0" Grid.Column="1">
-                <TextBlock FontWeight="Bold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Text="State Info" />
-              </DockPanel>
-              <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                <Label Content="Capital:" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="10" Margin="0,-4,0,-7"/>
-                <TextBlock Name="stateCapitalBlock" VerticalAlignment="Center" HorizontalAlignment="Center" />
-              </StackPanel>
-              <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Vertical">
-                <Label Content="Largest City:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-4,0,-7" FontWeight="Bold" FontSize="10"/>
-                <TextBlock Name="largestCityBlock" VerticalAlignment="Top" HorizontalAlignment="Center" />
-              </StackPanel>
+              <Grid Grid.Row="1" Grid.Column="0" >
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="9*" />
+                  <RowDefinition Height="18*"/>
+                  <RowDefinition Height="18*"/>
+                  <RowDefinition Height="18*"/>
+                  <RowDefinition Height="18*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-            </Grid>
-            <Grid Grid.Column="1" Grid.Row="1" >
-              <Grid.RowDefinitions>
-                <RowDefinition Height=".6*" />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-              </Grid.RowDefinitions>
-              <StackPanel Grid.Row="0" Orientation="Vertical">
-                <Label Content="Recruiter Info" HorizontalAlignment="Left" VerticalAlignment="Top"  FontWeight="Bold" FontSize="12"/>
-              </StackPanel>
-              <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <Label Content="Recruiter Name:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="10"/>
-                <TextBlock Name="recruiterNameTxt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-              </StackPanel>
-              <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <Label Content="Phone Number:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="10"/>
-                <TextBlock Name="recruiterPhoneTxt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-              </StackPanel>
-              <StackPanel Grid.Row="3" Orientation="Horizontal">
-                <Label Content="Email:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="10"/>
-                <TextBlock Name="recruiterEmailTxt" VerticalAlignment="Center" HorizontalAlignment="Center" />
-              </StackPanel>
-              <StackPanel Grid.Row="4" Orientation="Horizontal">
-                <Label Content="LinkedIn: " HorizontalAlignment="Left" Margin="0,-4,0,0" FontWeight="Bold" FontSize="10"/>
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="NoWrap" Width="200">
-                  <Hyperlink Name="recruiterLinkTxt" NavigateUri="" RequestNavigate="Hyperlink_Requested">
-          <Run Name="recruiterRunBox"/>
-                    </Hyperlink>
-                </TextBlock>
-              </StackPanel>
-              
-            </Grid>
+                <DockPanel Grid.Row="0" Grid.Column="0">
+                  <TextBlock FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Location Info" />
+                </DockPanel>
+                <DockPanel Grid.Row="1" Grid.Column="0" LastChildFill="True">
+                  <Label Content="City:" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Center" FontSize="10" Margin="0,0,6,0"/>
+                  <TextBox Name="cityBox" Style="{DynamicResource OneLineTextBoxDynamic}"/>
+                </DockPanel>
+                <DockPanel Grid.Row="2" Grid.Column="0" LastChildFill="True">
+                  <Label Content="State:" VerticalAlignment="Center" FontWeight="Bold" FontSize="10"/>
+                  <TextBox Name="stateBox" Style="{DynamicResource OneLineTextBoxDynamic}"/>
+                </DockPanel>
+                <DockPanel Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" LastChildFill="True">
+                  <Label Content="City Rating:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="9"/>
+                  <TextBox Name="cityRatingBox" Style="{DynamicResource WrappedTextBoxDynamic}" Height="50" />
+                </DockPanel>
+                <DockPanel Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" LastChildFill="True">
+                  <Label Content="Notes:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="9"/>
+                  <TextBox Name="cityNotesBox" Style="{DynamicResource WrappedHyperlinkTextBox}" Height="50"/>
+                </DockPanel>
+                <DockPanel Grid.Row="0" Grid.Column="1">
+                  <TextBlock FontWeight="Bold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Text="State Info" />
+                </DockPanel>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                  <Label Content="Capital:" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="10" Margin="0,-4,0,-7"/>
+                  <TextBlock Name="stateCapitalBlock" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Vertical">
+                  <Label Content="Largest City:" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-4,0,-7" FontWeight="Bold" FontSize="10"/>
+                  <TextBlock Name="largestCityBlock" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                </StackPanel>
+
+              </Grid>
+              <Grid Grid.Column="1" Grid.Row="1" >
+                <Grid.RowDefinitions>
+                  <RowDefinition Height=".6*" />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                  <Label Content="Recruiter Info" HorizontalAlignment="Left" VerticalAlignment="Top"  FontWeight="Bold" FontSize="12"/>
+                </StackPanel>
+                <DockPanel Grid.Row="1" LastChildFill="True">
+                  <Label Content="Recruiter Name:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="10"/>
+                  <TextBox Name="recNameBox" Style="{DynamicResource OneLineTextBoxDynamic}" />
+                </DockPanel>
+                <DockPanel Grid.Row="2" LastChildFill="True">
+                  <Label Content="Phone Number:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="10"/>
+                  <TextBox Name="recPhoneBox" Style="{DynamicResource OneLineTextBoxDynamic}"/>
+                </DockPanel>
+                <DockPanel Grid.Row="3" LastChildFill="True">
+                  <Label Content="Email:" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="10"/>
+                  <TextBox Name="recEmailBox" Style="{DynamicResource OneLineTextBoxDynamic}" />
+                </DockPanel>
+                <DockPanel Grid.Row="4" LastChildFill="True">
+                  <Label Content="LinkedIn: " HorizontalAlignment="Left" Margin="0,-4,0,0" FontWeight="Bold" FontSize="10"/>
+                  <TextBox Name="recLinkBox" Style="{DynamicResource OneLineHyperlinkTextBox}" />
+                </DockPanel>
+
+              </Grid>
+
+
             </Grid>
 
 
@@ -227,6 +221,9 @@
 
             </Border>
 
+            <Grid Name="jobInfoChangedGrid"  Grid.ColumnSpan="2" Grid.Row="0" IsMouseDirectlyOverChanged="MousePosition_Changed" Background="Azure" Opacity="0" MouseDown="EditorSelector_Clicked" />
+            <Grid Name="locationInfoChangedGrid" Grid.Row="1" Grid.Column="0" Margin="0,0,-50,0" IsMouseDirectlyOverChanged="MousePosition_Changed" Background="Azure" Opacity="0" MouseDown="EditorSelector_Clicked" />
+            <Grid Name="recruiterInfoChangedGrid" Grid.Row="1" Grid.Column="1" Margin="50,0,0,0" IsMouseDirectlyOverChanged="MousePosition_Changed" Background="Azure" Opacity="0" MouseDown="EditorSelector_Clicked" />
           </Grid>
         </Border>
 

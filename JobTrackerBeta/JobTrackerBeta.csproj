@@ -58,9 +58,6 @@
     <Compile Include="AddPositionWindow.xaml.cs">
       <DependentUpon>AddPositionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditJob.xaml.cs">
-      <DependentUpon>EditJob.xaml</DependentUpon>
-    </Compile>
     <Compile Include="JobInfo.cs" />
     <Compile Include="ViewJobs.xaml.cs">
       <DependentUpon>ViewJobs.xaml</DependentUpon>
@@ -75,10 +72,6 @@
     <Compile Include="ViewModel\RecruiterModel.cs" />
     <Compile Include="ViewModel\StatesViewModel.cs" />
     <Page Include="AddPositionWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EditJob.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,6 +110,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OneLineTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\OneLineHyperlinkTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\WrappedHyperlinkTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\OneLineTextBoxDynamic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\WrappedTextBoxDynamic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
