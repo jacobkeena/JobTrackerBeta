@@ -104,35 +104,35 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\ComboBoxDynamic.xaml">
+    <Page Include="ResourceDictionaries\ComboBoxDynamic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\MyButtonStyle.xaml">
+    <Page Include="ResourceDictionaries\MyButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\OneLineHyperlinkTextBox.xaml">
+    <Page Include="ResourceDictionaries\OneLineHyperlinkTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\OneLineTextBox.xaml">
+    <Page Include="ResourceDictionaries\OneLineTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\WrappedHyperlinkTextBox.xaml">
+    <Page Include="ResourceDictionaries\WrappedHyperlinkTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\OneLineTextBoxDynamic.xaml">
+    <Page Include="ResourceDictionaries\OneLineTextBoxDynamic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\WrappedTextBox.xaml">
+    <Page Include="ResourceDictionaries\WrappedTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\WrappedTextBoxDynamic.xaml">
+    <Page Include="ResourceDictionaries\WrappedTextBoxDynamic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

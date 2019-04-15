@@ -8,7 +8,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("JobTrackerBeta")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Resource to track your job search process.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("JobTrackerBeta")]
