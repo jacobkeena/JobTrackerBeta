@@ -6,7 +6,11 @@ TO DO:
 
 
 
+- create update function in SQLConnections for Locations and for Jobs
 
+- create a admin page that displays all positions and locations. If they want to modify them, great! if they want to delete them,
+create a message that shows where jobs are currently assigned those positions (sql will throw exception if deleting a position that a job 
+has w/ a FK)
 
 
 - also should really consider using stored procedures. writing this all is annoying
@@ -16,8 +20,8 @@ TO DO:
 *************************************************
 IN PROGRESS:
 
-- create edit page as a duplicate of viewjobs.xaml. Create with textboxes / comboboxes where user can update info                
-
+               
+- Set location boxes equal to jobModel.LinkedLocation.[fields]
 
               
 
@@ -47,3 +51,12 @@ COOL FUNCTIONALITY IDEAS:
 - Add "go to browser" link in link error message box 
 
 - @@identityscope - use to return ID of last added value to DB - used with adding recruiter
+
+
+
+**************************************************
+ABANDONED IDEAS
+
+- create edit page as a duplicate of viewjobs.xaml. Create with textboxes / comboboxes where user can update info 
+(This seemed to cumbersome. Decided to change textBlocks to textBoxes and set them to readonly=false on edit mode)
+

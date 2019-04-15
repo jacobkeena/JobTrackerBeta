@@ -95,11 +95,10 @@ namespace JobTrackerBeta
         //Submit Button
         private void Click_SubmitButton(object sender, RoutedEventArgs e)
         {
-            
+            SQLConnections sql = new SQLConnections();
 
             if (recNameBox.IsReadOnly == false)
             {
-                SQLConnections sql = new SQLConnections();
                 jobsModel.LinkedRecruiter.RecruiterName = recNameBox.Text;
                 jobsModel.LinkedRecruiter.Email = recEmailBox.Text;
                 jobsModel.LinkedRecruiter.LinkedInLink = recLinkBox.Text;
@@ -109,7 +108,17 @@ namespace JobTrackerBeta
                 ReinitializeCurrentJob();
                 SetAllTextBoxes();
             }
+            if (cityBox.IsReadOnly == false)
+            {
+                jobsModel.LinkedLocation.City = cityBox.Text;
+                jobsModel.LinkedLocation.Notes = cityNotesBox.Text;
 
+                //finish code for location updating
+
+                //
+                ReinitializeCurrentJob();
+                SetAllTextBoxes();
+            }
 
             //button visibility
             HideAllEditingButtons();
@@ -270,26 +279,16 @@ namespace JobTrackerBeta
 
         private void SetAllJobBoxes()
         {
-            var companyName = companyNameBox as TextBox;
-            var jobTitle = positionBox as TextBox;
-            var salaryRange = salaryBox as TextBox;
-            var ceoName = ceoNameBox as TextBox;
-            var comments = commentsBox as TextBox;
-            var rating = ratingBox as TextBox;
-            var missionStatement = missionStatementBox as TextBox;
-            var joblink = runLinkBox as TextBox;
-            var benefits = benefitsBox as TextBox;
-
-            companyName.Text = jobsModel.SelectedJob.CompanyName;
-            comments.Text = jobsModel.SelectedJob.Comments;
-            jobTitle.Text = jobsModel.SelectedJob.Position;
-            salaryRange.Text = jobsModel.SelectedJob.SalaryRange;
-            ceoName.Text = jobsModel.SelectedJob.CEOName;
-            comments.Text = jobsModel.SelectedJob.Comments;
-            rating.Text = jobsModel.SelectedJob.Rating;
-            missionStatement.Text = jobsModel.SelectedJob.MissionStatement;
-            benefits.Text = jobsModel.SelectedJob.Benefits;
-            joblink.Text = jobsModel.SelectedJob.JobLink;
+            companyNameBox.Text = jobsModel.SelectedJob.CompanyName;
+            commentsBox.Text = jobsModel.SelectedJob.Comments;
+            positionBox.Text = jobsModel.SelectedJob.Position;
+            salaryBox.Text = jobsModel.SelectedJob.SalaryRange;
+            ceoNameBox.Text = jobsModel.SelectedJob.CEOName;
+            commentsBox.Text = jobsModel.SelectedJob.Comments;
+            ratingBox.Text = jobsModel.SelectedJob.Rating;
+            missionStatementBox.Text = jobsModel.SelectedJob.MissionStatement;
+            benefitsBox.Text = jobsModel.SelectedJob.Benefits;
+            runLinkBox.Text = jobsModel.SelectedJob.JobLink;
         }
 
         private void SetJobBoxesToReadOnly()
