@@ -2,14 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:JobTrackerBeta.Resources">
 
-
-  <Style TargetType="{x:Type TextBox}" x:Key="WrappedTextBoxDynamic">
+  <Style TargetType="ComboBox" x:Key="ComboBoxDynamic">
+    <Setter Property="IsEditable" Value="True"/>
+    <Setter Property="IsReadOnly" Value="True"/>
+    <Setter Property="Height" Value="20"/>
     <Setter Property="Width" Value="auto" />
-    <Setter Property="Height" Value="auto" />
-    <Setter Property="MinWidth" Value="60" />
-    <Setter Property="Margin" Value="10,10,20,10" />
-    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="Margin" Value="10,0,20,0" />
   </Style>
-
-
+    
 </ResourceDictionary>

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:JobTrackerBeta"
       xmlns:vm="clr-namespace:JobTrackerBeta.ViewModel"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="900"
       Title="ViewJobs">
   <Page.Resources>
     <vm:JobsModel x:Key="JobsModel"/>
@@ -87,7 +87,7 @@
               </DockPanel>
               <DockPanel Grid.Row="2" LastChildFill="True">
                 <Label Content="Position:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <TextBox Style="{DynamicResource OneLineTextBoxDynamic}" Name="positionBox"/>
+                <ComboBox Name="positionCBox" Style="{DynamicResource ComboBoxDynamic}"/>
               </DockPanel>
               <DockPanel Grid.Row="3" LastChildFill="True">
                 <Label Content="Salary Range:" FontWeight="DemiBold" VerticalAlignment="Center"/>
@@ -95,7 +95,7 @@
               </DockPanel>
               <DockPanel Grid.Row="4" LastChildFill="True">
                 <Label Content="Rating:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <TextBox Style="{DynamicResource OneLineTextBoxDynamic}" Name="ratingBox" />
+                <ComboBox Style="{DynamicResource ComboBoxDynamic}" Name="ratingCBox" IsManipulationEnabled="False" />
               </DockPanel>
               <DockPanel Grid.Row="5" LastChildFill="True">
                 <Label Content="CEO Name:" FontWeight="DemiBold" VerticalAlignment="Center"/>
@@ -130,7 +130,7 @@
                       <Setter Property="Height" Value="65" />
                       <Setter Property="MaxWidth" Value="300" />
                       <Setter Property="MinWidth" Value="60" />
-                      <Setter Property="Margin" Value="0,0,20,0" />
+                      <Setter Property="Margin" Value="10,0,20,0" />
                       <Setter Property="TextWrapping" Value="Wrap"/>
                       <Style.Triggers>
                         <DataTrigger Binding="{Binding HasValidURI}" Value="True">
@@ -178,11 +178,11 @@
                 </DockPanel>
                 <DockPanel Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" LastChildFill="True">
                   <Label Content="City Rating:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="9"/>
-                  <TextBox Name="cityRatingBox" Style="{DynamicResource WrappedTextBoxDynamic}" Height="50" />
+                  <TextBox Name="cityRatingBox" Style="{DynamicResource WrappedTextBoxDynamic}" />
                 </DockPanel>
                 <DockPanel Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" LastChildFill="True">
                   <Label Content="Notes:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="9"/>
-                  <TextBox Name="cityNotesBox" Style="{DynamicResource WrappedHyperlinkTextBox}" Height="50"/>
+                  <TextBox Name="cityNotesBox" Style="{DynamicResource WrappedTextBoxDynamic}"/>
                 </DockPanel>
                 <DockPanel Grid.Row="0" Grid.Column="1">
                   <TextBlock FontWeight="Bold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Text="State Info" />
@@ -239,8 +239,8 @@
             </Border>
 
             <Grid Name="jobInfoChangedGrid"  Grid.ColumnSpan="2" Grid.Row="0" IsMouseDirectlyOverChanged="MousePosition_Changed" Background="CornflowerBlue" Opacity="0" MouseDown="EditorSelector_Clicked" />
-            <Grid Name="locationInfoChangedGrid" Grid.Row="1" Grid.Column="0" Margin="0,0,-50,0" IsMouseDirectlyOverChanged="MousePosition_Changed" Background="CornflowerBlue" Opacity="0" MouseDown="EditorSelector_Clicked" />
-            <Grid Name="recruiterInfoChangedGrid" Grid.Row="1" Grid.Column="1" Margin="50,0,0,0" IsMouseDirectlyOverChanged="MousePosition_Changed" Background="CornflowerBlue" Opacity="0" MouseDown="EditorSelector_Clicked" />
+            <Grid Name="locationInfoChangedGrid" Grid.Row="1" Grid.Column="0" Margin="0,0,-53,0" IsMouseDirectlyOverChanged="MousePosition_Changed" Background="CornflowerBlue" Opacity="0" MouseDown="EditorSelector_Clicked" />
+            <Grid Name="recruiterInfoChangedGrid" Grid.Row="1" Grid.Column="1" Margin="54,0,0,0" IsMouseDirectlyOverChanged="MousePosition_Changed" Background="CornflowerBlue" Opacity="0" MouseDown="EditorSelector_Clicked" />
           </Grid>
         </Border>
 

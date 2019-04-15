@@ -45,12 +45,12 @@
       </StackPanel>
       <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
         <Label Content="Position" VerticalAlignment="Center" Width="55" />
-        <ComboBox VerticalAlignment="Center" Name="boxPosition" Width="130" Height="18" DropDownOpened="PositionBox_Loaded" SelectionChanged="PositionBox_Changed"  FontSize="9">
+        <ComboBox VerticalAlignment="Center" Name="boxPosition" Width="130" Height="18" DropDownOpened="PositionBox_Loaded" SelectionChanged="PositionBox_Changed"  FontSize="9" IsReadOnly="True" IsEditable="True">
         </ComboBox>
       </StackPanel>
       <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
         <Label Content="Location" VerticalAlignment="Center" Width="55" />
-        <ComboBox VerticalAlignment="Center" Name="boxLocation" Width="130" Height="18" DropDownOpened="LocationBox_Loaded" SelectionChanged="LocationBox_Changed"  FontSize="9">
+        <ComboBox VerticalAlignment="Center" Name="boxLocation" Width="130" Height="18" DropDownOpened="LocationBox_Loaded" SelectionChanged="LocationBox_Changed"  FontSize="9" IsEditable="True" IsReadOnly="True">
         </ComboBox>
       </StackPanel>
       <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" >
@@ -64,7 +64,7 @@
      
       <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
         <Label Content="Rating" VerticalAlignment="Center" Width="100" />
-        <ComboBox VerticalAlignment="Center" Name="boxRating" Width="130" Height="18" Loaded="RatingBox_Loaded" FontSize="9">
+        <ComboBox VerticalAlignment="Center" IsEditable="True" IsReadOnly="True" Name="boxRating" Width="130" Height="18" Loaded="RatingBox_Loaded" FontSize="9">
         </ComboBox>
       </StackPanel>
       <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">

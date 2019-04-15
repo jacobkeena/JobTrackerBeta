@@ -36,7 +36,7 @@
 
       <StackPanel Grid.Column = "0" Grid.Row = "2" Orientation = "Horizontal">
         <Label Content = "State" VerticalAlignment = "Center" Width = "70"/>
-        <ComboBox VerticalAlignment="Center" Name="boxState" Width="130" Height="18" FontSize="9" IsEditable="True" Loaded="boxState_Loaded">
+        <ComboBox VerticalAlignment="Center" Name="boxState" Width="130" Height="18" FontSize="9" IsEditable="True" Loaded="boxState_Loaded" IsReadOnly="True">
         </ComboBox>
       </StackPanel>
 

@@ -252,11 +252,11 @@ namespace JobTrackerBeta
         {
             companyNameBox.Text = jobsModel.SelectedJob.CompanyName;
             commentsBox.Text = jobsModel.SelectedJob.Comments;
-            positionBox.Text = jobsModel.SelectedJob.Position;
+            positionCBox.Text = jobsModel.SelectedJob.Position;
             salaryBox.Text = jobsModel.SelectedJob.SalaryRange;
             ceoNameBox.Text = jobsModel.SelectedJob.CEOName;
             commentsBox.Text = jobsModel.SelectedJob.Comments;
-            ratingBox.Text = jobsModel.SelectedJob.Rating;
+            ratingCBox.Text = jobsModel.SelectedJob.Rating;
             missionStatementBox.Text = jobsModel.SelectedJob.MissionStatement;
             benefitsBox.Text = jobsModel.SelectedJob.Benefits;
             runLinkBox.Text = jobsModel.SelectedJob.JobLink;
@@ -281,11 +281,11 @@ namespace JobTrackerBeta
         {
             companyNameBox.Text = jobsModel.SelectedJob.CompanyName;
             commentsBox.Text = jobsModel.SelectedJob.Comments;
-            positionBox.Text = jobsModel.SelectedJob.Position;
+            positionCBox.Text = jobsModel.SelectedJob.Position;
             salaryBox.Text = jobsModel.SelectedJob.SalaryRange;
             ceoNameBox.Text = jobsModel.SelectedJob.CEOName;
             commentsBox.Text = jobsModel.SelectedJob.Comments;
-            ratingBox.Text = jobsModel.SelectedJob.Rating;
+            ratingCBox.Text = jobsModel.SelectedJob.Rating;
             missionStatementBox.Text = jobsModel.SelectedJob.MissionStatement;
             benefitsBox.Text = jobsModel.SelectedJob.Benefits;
             runLinkBox.Text = jobsModel.SelectedJob.JobLink;
@@ -294,11 +294,11 @@ namespace JobTrackerBeta
         private void SetJobBoxesToReadOnly()
         {
             companyNameBox.IsReadOnly = true;
-            positionBox.IsReadOnly = true;
+            positionCBox.IsEnabled = false;
             salaryBox.IsReadOnly = true;
             ceoNameBox.IsReadOnly = true;
             commentsBox.IsReadOnly = true;
-            ratingBox.IsReadOnly = true;
+            ratingCBox.IsEnabled = false;
             missionStatementBox.IsReadOnly = true;
             benefitsBox.IsReadOnly = true;
             runLinkBox.IsReadOnly = true;
@@ -307,11 +307,11 @@ namespace JobTrackerBeta
         private void SetJobBoxesToReadWrite()
         {
             companyNameBox.IsReadOnly = false;
-            positionBox.IsReadOnly = false;
+            positionCBox.IsEnabled = true;
             salaryBox.IsReadOnly = false;
             ceoNameBox.IsReadOnly = false;
             commentsBox.IsReadOnly = false;
-            ratingBox.IsReadOnly = false;
+            ratingCBox.IsEnabled = true;
             missionStatementBox.IsReadOnly = false;
             benefitsBox.IsReadOnly = false;
             runLinkBox.IsReadOnly = false;
@@ -321,7 +321,7 @@ namespace JobTrackerBeta
         {
             cityBox.IsReadOnly = true;
             stateBox.IsReadOnly = true;
-            cityBox.IsReadOnly = true;
+            cityRatingBox.IsReadOnly = true;
             cityNotesBox.IsReadOnly = true;
 
         }
