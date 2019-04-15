@@ -28,6 +28,7 @@ namespace JobTrackerBeta
     public partial class ViewJobs : Page, INotifyPropertyChanged
     {
         JobsModel jobsModel = new JobsModel();
+
         public ViewJobs()
         {
             InitializeComponent();
@@ -42,19 +43,28 @@ namespace JobTrackerBeta
             SetRecruiterBoxesToReadOnly();
             editButton.Visibility = Visibility.Hidden;
         }
+
+
+        private int SelectedJobID { get; set; }
+
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //button visibility
+            //Button visibility
             editButton.Visibility = Visibility.Visible;
             HideAllEditingButtons();
             HideAllEditingPlanes();
 
+            // Set index to maintain current job in case of updates
+
+            // Populate SelectedJob field of JobsModel 
             var nameSelected = lbDisplayJobs.SelectedItem;
+
             var jobSelected = jobsModel.AllJobs.Where(x => x.CompanyName == nameSelected.ToString());
             foreach (var item in jobSelected)
             {
                 jobsModel.SelectedJob = item;
             }
+            SelectedJobID = jobsModel.SelectedJob.CompanyId;
 
             // Set all text to SelectedJob on page
             SetAllTextBoxes();
@@ -85,12 +95,28 @@ namespace JobTrackerBeta
         //Submit Button
         private void Click_SubmitButton(object sender, RoutedEventArgs e)
         {
+            
+
+            if (recNameBox.IsReadOnly == false)
+            {
+                SQLConnections sql = new SQLConnections();
+                jobsModel.LinkedRecruiter.RecruiterName = recNameBox.Text;
+                jobsModel.LinkedRecruiter.Email = recEmailBox.Text;
+                jobsModel.LinkedRecruiter.LinkedInLink = recLinkBox.Text;
+                jobsModel.LinkedRecruiter.PhoneNumber = recPhoneBox.Text;
+
+                sql.UpdateRecruiter(jobsModel.LinkedRecruiter);
+                ReinitializeCurrentJob();
+                SetAllTextBoxes();
+            }
+
+
             //button visibility
             HideAllEditingButtons();
             HideAllEditingPlanes();
-            SetJobBoxesToReadOnly();
             SetRecruiterBoxesToReadOnly();
             SetLocationBoxToReadOnly();
+            SetJobBoxesToReadOnly();
 
         }
         //Cancel Button
@@ -215,18 +241,6 @@ namespace JobTrackerBeta
 
         private void SetAllTextBoxes()
         {
-            // get empty textblocks
-            
-            var companyName = companyNameBox as TextBox;
-            var jobTitle = positionBox as TextBox;
-            var salaryRange = salaryBox as TextBox;
-            var ceoName = ceoNameBox as TextBox;
-            var comments = commentsBox as TextBox;
-            var rating = ratingBox as TextBox;
-            var missionStatement = missionStatementBox as TextBox;
-            var joblink = runLinkBox as TextBox;
-            var benefits = benefitsBox as TextBox;
-
             companyNameBox.Text = jobsModel.SelectedJob.CompanyName;
             commentsBox.Text = jobsModel.SelectedJob.Comments;
             positionBox.Text = jobsModel.SelectedJob.Position;
@@ -332,6 +346,12 @@ namespace JobTrackerBeta
             recEmailBox.IsReadOnly = false;
             recPhoneBox.IsReadOnly = false;
             recLinkBox.IsReadOnly = false;
+        }
+
+        private void ReinitializeCurrentJob()
+        {
+            jobsModel = new JobsModel();
+            jobsModel.SelectedJob = jobsModel.AllJobs.Where(x => x.CompanyId == SelectedJobID).FirstOrDefault();
         }
 
 
