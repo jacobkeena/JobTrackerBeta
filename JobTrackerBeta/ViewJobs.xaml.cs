@@ -28,6 +28,9 @@ namespace JobTrackerBeta
     public partial class ViewJobs : Page, INotifyPropertyChanged
     {
         JobsModel jobsModel = new JobsModel();
+        LocationViewModel locationModel = new LocationViewModel();
+        SQLConnections sql = new SQLConnections();
+
 
         public ViewJobs()
         {
@@ -46,6 +49,7 @@ namespace JobTrackerBeta
 
 
         private int SelectedJobID { get; set; }
+        private bool IsRecruiterInitialized { get; set; }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -54,34 +58,26 @@ namespace JobTrackerBeta
             HideAllEditingButtons();
             HideAllEditingPlanes();
 
-            // Set index to maintain current job in case of updates
-
-            // Populate SelectedJob field of JobsModel 
-            var nameSelected = lbDisplayJobs.SelectedItem;
-
-            var jobSelected = jobsModel.AllJobs.Where(x => x.CompanyName == nameSelected.ToString());
-            foreach (var item in jobSelected)
-            {
-                jobsModel.SelectedJob = item;
-            }
-            SelectedJobID = jobsModel.SelectedJob.CompanyId;
-
-            // Set all text to SelectedJob on page
-            SetAllTextBoxes();
-        }
-
-        private void Hyperlink_Requested(object sender, RequestNavigateEventArgs e)
-        {
             try
             {
-                Process.Start(new ProcessStartInfo(jobsModel?.SelectedJob.JobLink));
-                e.Handled = true;
+                // Populate SelectedJob field of JobsModel 
+                var nameSelected = lbDisplayJobs.SelectedItem;
+
+                jobsModel.SelectedJob = jobsModel.AllJobs.Where(x => x.CompanyName == nameSelected.ToString()).FirstOrDefault();
+
+                //Sets ID so it current job selection is maintained upon updates
+                SelectedJobID = jobsModel.SelectedJob.CompanyId;
+
+                // Set all text to SelectedJob on page
+                SetAllTextBoxes();
             }
             catch (Exception)
             {
-                MessageBox.Show("Sorry but that link is invalid. Try copying and pasting it into your browser!", "Error", MessageBoxButton.OK);
+                lbDisplayJobs.SelectedIndex = -1;
             }
         }
+
+
         #region Editing Button Event Handlers (Edit, Submit, Cancel, Delete)
 
         //Edit Button
@@ -92,32 +88,66 @@ namespace JobTrackerBeta
             ShowAllEditingPlanes();
 
         }
+
         //Submit Button
         private void Click_SubmitButton(object sender, RoutedEventArgs e)
         {
             SQLConnections sql = new SQLConnections();
 
+            // Update Recruiter Information
             if (recNameBox.IsReadOnly == false)
             {
-                jobsModel.LinkedRecruiter.RecruiterName = recNameBox.Text;
-                jobsModel.LinkedRecruiter.Email = recEmailBox.Text;
-                jobsModel.LinkedRecruiter.LinkedInLink = recLinkBox.Text;
-                jobsModel.LinkedRecruiter.PhoneNumber = recPhoneBox.Text;
+                Recruiter newRecruiter = new Recruiter();
 
-                sql.UpdateRecruiter(jobsModel.LinkedRecruiter);
+                newRecruiter.RecruiterName = recNameBox.Text;
+                newRecruiter.Email = recEmailBox.Text;
+                newRecruiter.LinkedInLink = recLinkBox.Text;
+                newRecruiter.PhoneNumber = recPhoneBox.Text;
+                sql.UpdateRecruiter(newRecruiter);
+
                 ReinitializeCurrentJob();
                 SetAllTextBoxes();
             }
-            if (cityBox.IsReadOnly == false)
+
+            // Update Location Information
+            if (cityCBox.IsHitTestVisible == true)
             {
-                jobsModel.LinkedLocation.City = cityBox.Text;
-                jobsModel.LinkedLocation.Notes = cityNotesBox.Text;
-
-                //finish code for location updating
-
-                //
+                sql.UpdateJobLocationID(locationModel.NewLocation.LocationId, jobsModel.SelectedJob.CompanyId);
                 ReinitializeCurrentJob();
                 SetAllTextBoxes();
+            }
+
+            // Update Job Information
+            if (companyNameBox.IsReadOnly == false)
+            {
+                jobsModel.NewJobEntry = new Jobs();
+                jobsModel.NewJobEntry.CompanyId = SelectedJobID;
+                jobsModel.NewJobEntry.CompanyName = companyNameBox.Text;
+                jobsModel.NewJobEntry.SalaryRange = salaryBox.Text;
+                jobsModel.NewJobEntry.CEOName = ceoNameBox.Text;
+                jobsModel.NewJobEntry.MissionStatement = missionStatementBox.Text;
+                jobsModel.NewJobEntry.Benefits = benefitsBox.Text;
+                jobsModel.NewJobEntry.Comments = commentsBox.Text;
+                jobsModel.NewJobEntry.JobLink = runLinkBox.Text;
+
+                PositionModel positionModel = new PositionModel();
+                var position = positionModel.AllPositions.Where(x => x.JobTitle == positionCBox.Text);
+                foreach (var item in position)
+                {
+                    jobsModel.NewJobEntry.PositionId = item.PositionID;
+                }
+
+                int ratingId = sql.GetCompanyRatingID(ratingCBox.SelectedItem.ToString());
+                jobsModel.NewJobEntry.RatingId = ratingId;
+
+                // Validation
+                if (string.IsNullOrEmpty(companyNameBox.Text) || !string.IsNullOrEmpty(positionCBox.Text) || !string.IsNullOrEmpty(ratingCBox.Text))
+                {
+                    MessageBox.Show("Please make sure Company Name, Postion, Rating, and Location are all filled out.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                sql.UpdateJobInformation(jobsModel.NewJobEntry);
             }
 
             //button visibility
@@ -128,6 +158,7 @@ namespace JobTrackerBeta
             SetJobBoxesToReadOnly();
 
         }
+
         //Cancel Button
         private void Click_CancelButton(object sender, RoutedEventArgs e)
         {
@@ -143,11 +174,69 @@ namespace JobTrackerBeta
         //Delete Button
         private void Click_DeleteButton(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult result = new MessageBoxResult();
+            if (jobsModel.SelectedJob.RecruiterId.HasValue)
+            {
+                result = MessageBox.Show("Do you want to delete the linked recruiter information with this job as well?", "Delete", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
+                if (result == MessageBoxResult.Yes)
+                {
+                    sql.DeleteSpecificJobWithRecruiter(jobsModel.SelectedJob.CompanyId, jobsModel.SelectedJob.RecruiterId.Value);
+
+                    //button visibility
+                    HideAllEditingButtons();
+                    HideAllEditingPlanes();
+                    SetRecruiterBoxesToReadOnly();
+                    SetLocationBoxToReadOnly();
+                    SetJobBoxesToReadOnly();
+
+                    jobsModel = new JobsModel();
+                    lbDisplayJobs.SelectedIndex = -1;
+                }
+                if (result == MessageBoxResult.No)
+                {
+                    result = MessageBox.Show("Recruiter information can be found in View Attributes page. Delete job information now?", "Delete", MessageBoxButton.OKCancel, MessageBoxImage.None);
+                    if (result == MessageBoxResult.OK)
+                    {
+                        sql.DeleteSpecificJob(jobsModel.SelectedJob.CompanyId);
+
+                        //button visibility
+                        HideAllEditingButtons();
+                        HideAllEditingPlanes();
+                        SetRecruiterBoxesToReadOnly();
+                        SetLocationBoxToReadOnly();
+                        SetJobBoxesToReadOnly();
+
+                        jobsModel = new JobsModel();
+                        lbDisplayJobs.SelectedIndex = -1;
+                    }
+                }
+            }
+            else
+            {
+                result = MessageBox.Show("Are you sure you want to delete this job? This cannot be undone", "Delete", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
+                if (result == MessageBoxResult.Yes)
+                {
+                    sql.DeleteSpecificJob(jobsModel.SelectedJob.CompanyId);
+
+                    //button visibility
+                    HideAllEditingButtons();
+                    HideAllEditingPlanes();
+                    SetRecruiterBoxesToReadOnly();
+                    SetLocationBoxToReadOnly();
+                    SetJobBoxesToReadOnly();
+
+                    jobsModel = new JobsModel();
+                    lbDisplayJobs.SelectedIndex = -1;
+                }
+                else
+                    return;
+            }
 
         }
         #endregion
 
-        #region Event to make edit planes blue when mouse hovers over them 
+        #region Events for blue edit selector panels
+
         int jobMouseCounter = 0;
         int locationMouseCounter = 0;
         int recruiterMouseCounter = 0;
@@ -192,7 +281,6 @@ namespace JobTrackerBeta
                     break;
             }
         }
-        #endregion
 
         private void EditorSelector_Clicked(object sender, MouseButtonEventArgs e)
         {
@@ -204,7 +292,6 @@ namespace JobTrackerBeta
                     HideAllEditingPlanes();
                     SetJobBoxesToReadWrite();
                     companyNameBox.IsReadOnly = false;
-                    
                     break;
                 case "locationInfoChangedGrid":
                     HideAllEditingPlanes();
@@ -212,11 +299,175 @@ namespace JobTrackerBeta
                     break;
                 case "recruiterInfoChangedGrid":
                     HideAllEditingPlanes();
+                    MessageBoxResult result;
+                    if (IsRecruiterInitialized == false)
+                    {
+                        result = MessageBox.Show("This job was not created with a recruiter. Would you like to add one?", "Recruiter", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            Recruiter recruiter = new Recruiter()
+                            {
+                                RecruiterName = "",
+                                PhoneNumber = "",
+                                LinkedInLink = "",
+                                Email = ""
+                            };
+                            SQLConnections sql = new SQLConnections();
+                            int newRecruiterID = sql.AddRecruiterGetID(recruiter);
+                            sql.UpdateJobWithRecruiterID(newRecruiterID, jobsModel.SelectedJob.CompanyId);
+                            jobsModel = new JobsModel();
+                            jobsModel.SelectedJob = jobsModel.AllJobs.Where(x => x.CompanyId == SelectedJobID).FirstOrDefault();
+                            IsRecruiterInitialized = true;
+                        }
+                        else
+                        {
+                            ShowAllEditingPlanes();
+                            return;
+                        }
+                    }
+
                     SetRecruiterBoxesToReadWrite();
                     break;
 
             }
         }
+        #endregion
+
+        #region Event Handlers for ComboBoxes
+
+        private void PositionBox_Loaded(object sender, EventArgs e)
+        {
+            PositionModel positionModel = new PositionModel();
+            var positionCBox = sender as ComboBox;
+            var positions = positionModel.AllPositions;
+            if (positions.Last() != positions.Where(x => x.JobTitle == "AddLocation"))
+            {
+                positions.Add(new JobSearchLibrary.Entities.Position { JobTitle = "Add Position" });
+            }
+            positionCBox.ItemsSource = positions.Select(x => x.JobTitle);
+        }
+        private void PositionBox_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            bool addPosition = false;
+            var comboBox = sender as ComboBox;
+            string selection = comboBox.SelectedItem as string;
+            addPosition = CheckPositionSelected(selection);
+            if (addPosition == true)
+            {
+                AddPositionWindow addPositionWindow = new AddPositionWindow();
+                addPositionWindow.Show();
+                comboBox.SelectedIndex = -1;
+            }
+
+        }
+        private void RatingBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            RatingModel ratingModel = new RatingModel();
+            var ratings = ratingModel.AllRatings.Select(x => x.RatingDescription);
+
+            // get combobox ref
+            var comboBox = sender as ComboBox;
+
+            // assign itemsource to list above
+            comboBox.ItemsSource = ratings;
+        }
+        private void CityBox_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            var locations = locationModel.AllLocations;
+            if (locations.Last() != locations.Where(x => x.City == "AddLocation"))
+            {
+                locations.Add(new JobSearchLibrary.Entities.Location { City = "Add Location" });
+            }
+            cityCBox.ItemsSource = locations.Select(x => x.City);
+
+        }
+        private void CityBox_Changed(object sender, SelectionChangedEventArgs e)
+        {
+
+            bool addLocation = false;
+            var locationBox = sender as ComboBox;
+            string selection = locationBox.SelectedItem as string;
+            addLocation = CheckPositionSelected(selection);
+            if (addLocation == true)
+            {
+                MessageBoxResult result = MessageBox.Show("You are about to navigate away from this page. All input will have to be re-entered after adding a location", "Warning", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.OK)
+                {
+                    NavigationService nav = NavigationService.GetNavigationService(this);
+                    nav.Navigate(new System.Uri("LocationEntry.xaml", UriKind.RelativeOrAbsolute));
+                }
+                else
+                {
+                    locationBox.SelectedIndex = -1;
+                    return;
+                }
+            }
+
+            if (cityCBox.IsHitTestVisible == true)
+            {
+                locationModel.NewLocation = new Location();
+                var selectedLocation = locationModel.AllLocations.Where(x => x.City == cityCBox.SelectedItem.ToString());
+                foreach (var item in selectedLocation)
+                {
+                    locationModel.NewLocation.LocationId = item.LocationId;
+                    locationModel.NewLocation.StateId = item.StateId;
+                    locationModel.NewLocation.Notes = item.Notes;
+                    locationModel.NewLocation.CityRating = item.CityRating;
+                }
+                stateBox.Text = locationModel.NewLocation.State;
+                cityRatingBox.Text = $"{locationModel.NewLocation.CityRating.ToString()}: {locationModel.NewLocation.RatingConverted}";
+                cityNotesBox.Text = locationModel.NewLocation.Notes;
+
+                stateCapitalBlock.Text = locationModel.NewLocation.StateCapital;
+                largestCityBlock.Text = locationModel.NewLocation.LargestCity;
+            }
+        }
+
+        #endregion
+
+        #region Functions to set or hide boxes
+
+        private void SetAllTextBoxes()
+        {
+            companyNameBox.Text = jobsModel.SelectedJob.CompanyName;
+            commentsBox.Text = jobsModel.SelectedJob.Comments;
+            positionCBox.Text = jobsModel.SelectedJob.Position;
+            salaryBox.Text = jobsModel.SelectedJob.SalaryRange;
+            ceoNameBox.Text = jobsModel.SelectedJob.CEOName;
+            commentsBox.Text = jobsModel.SelectedJob.Comments;
+            ratingCBox.Text = jobsModel.SelectedJob.Rating;
+            missionStatementBox.Text = jobsModel.SelectedJob.MissionStatement;
+            benefitsBox.Text = jobsModel.SelectedJob.Benefits;
+            runLinkBox.Text = jobsModel.SelectedJob.JobLink;
+
+            cityCBox.Text = jobsModel.LinkedLocation.City;
+            stateBox.Text = jobsModel.LinkedLocation.State;
+            cityNotesBox.Text = jobsModel.LinkedLocation.Notes;
+            string cityRatingString = jobsModel.LinkedLocation.CityRating.ToString() + ": " + jobsModel.LinkedLocation.RatingConverted;
+            cityRatingBox.Text = cityRatingString;
+
+            stateCapitalBlock.Text = jobsModel.LinkedLocation.StateCapital;
+            largestCityBlock.Text = jobsModel.LinkedLocation.LargestCity;
+            try
+            {
+                recNameBox.Text = jobsModel.LinkedRecruiter.RecruiterName;
+                recEmailBox.Text = jobsModel.LinkedRecruiter.Email;
+                recPhoneBox.Text = jobsModel.LinkedRecruiter.PhoneNumber;
+                recLinkBox.Text = jobsModel.LinkedRecruiter.LinkedInLink;
+                IsRecruiterInitialized = true;
+            }
+            catch (NullReferenceException)
+            {
+                IsRecruiterInitialized = false;
+                recNameBox.Text = jobsModel.LinkedRecruiter?.RecruiterName;
+                recEmailBox.Text = jobsModel.LinkedRecruiter?.Email;
+                recPhoneBox.Text = jobsModel.LinkedRecruiter?.PhoneNumber;
+                recLinkBox.Text = jobsModel.LinkedRecruiter?.LinkedInLink;
+            }
+
+        }
+
         private void HideAllEditingButtons()
         {
             editButton.Visibility = Visibility.Visible;
@@ -248,57 +499,14 @@ namespace JobTrackerBeta
 
         }
 
-        private void SetAllTextBoxes()
-        {
-            companyNameBox.Text = jobsModel.SelectedJob.CompanyName;
-            commentsBox.Text = jobsModel.SelectedJob.Comments;
-            positionCBox.Text = jobsModel.SelectedJob.Position;
-            salaryBox.Text = jobsModel.SelectedJob.SalaryRange;
-            ceoNameBox.Text = jobsModel.SelectedJob.CEOName;
-            commentsBox.Text = jobsModel.SelectedJob.Comments;
-            ratingCBox.Text = jobsModel.SelectedJob.Rating;
-            missionStatementBox.Text = jobsModel.SelectedJob.MissionStatement;
-            benefitsBox.Text = jobsModel.SelectedJob.Benefits;
-            runLinkBox.Text = jobsModel.SelectedJob.JobLink;
-
-            cityBox.Text = jobsModel.LinkedLocation.City;
-            stateBox.Text = jobsModel.LinkedLocation.State;
-            cityNotesBox.Text = jobsModel.LinkedLocation.Notes;
-            string cityRatingString = jobsModel.LinkedLocation.CityRating.ToString() + ": " + jobsModel.LinkedLocation.RatingConverted;
-            cityRatingBox.Text = cityRatingString;
-           
-            stateCapitalBlock.Text = jobsModel.LinkedLocation.StateCapital;
-            largestCityBlock.Text = jobsModel.LinkedLocation.LargestCity;
-
-            recNameBox.Text = jobsModel.LinkedRecruiter.RecruiterName;
-            recEmailBox.Text = jobsModel.LinkedRecruiter.Email;
-            recPhoneBox.Text = jobsModel.LinkedRecruiter.PhoneNumber;
-            recLinkBox.Text = jobsModel.LinkedRecruiter.LinkedInLink;
-
-        }
-
-        private void SetAllJobBoxes()
-        {
-            companyNameBox.Text = jobsModel.SelectedJob.CompanyName;
-            commentsBox.Text = jobsModel.SelectedJob.Comments;
-            positionCBox.Text = jobsModel.SelectedJob.Position;
-            salaryBox.Text = jobsModel.SelectedJob.SalaryRange;
-            ceoNameBox.Text = jobsModel.SelectedJob.CEOName;
-            commentsBox.Text = jobsModel.SelectedJob.Comments;
-            ratingCBox.Text = jobsModel.SelectedJob.Rating;
-            missionStatementBox.Text = jobsModel.SelectedJob.MissionStatement;
-            benefitsBox.Text = jobsModel.SelectedJob.Benefits;
-            runLinkBox.Text = jobsModel.SelectedJob.JobLink;
-        }
-
         private void SetJobBoxesToReadOnly()
         {
             companyNameBox.IsReadOnly = true;
-            positionCBox.IsEnabled = false;
+            positionCBox.IsHitTestVisible = false;
             salaryBox.IsReadOnly = true;
             ceoNameBox.IsReadOnly = true;
             commentsBox.IsReadOnly = true;
-            ratingCBox.IsEnabled = false;
+            ratingCBox.IsHitTestVisible = false;
             missionStatementBox.IsReadOnly = true;
             benefitsBox.IsReadOnly = true;
             runLinkBox.IsReadOnly = true;
@@ -307,11 +515,11 @@ namespace JobTrackerBeta
         private void SetJobBoxesToReadWrite()
         {
             companyNameBox.IsReadOnly = false;
-            positionCBox.IsEnabled = true;
+            positionCBox.IsHitTestVisible = true;
             salaryBox.IsReadOnly = false;
             ceoNameBox.IsReadOnly = false;
             commentsBox.IsReadOnly = false;
-            ratingCBox.IsEnabled = true;
+            ratingCBox.IsHitTestVisible = true;
             missionStatementBox.IsReadOnly = false;
             benefitsBox.IsReadOnly = false;
             runLinkBox.IsReadOnly = false;
@@ -319,18 +527,14 @@ namespace JobTrackerBeta
 
         private void SetLocationBoxToReadOnly()
         {
-            cityBox.IsReadOnly = true;
+            cityCBox.IsHitTestVisible = false;
             stateBox.IsReadOnly = true;
             cityRatingBox.IsReadOnly = true;
             cityNotesBox.IsReadOnly = true;
-
         }
         private void SetLocationBoxesToReadWrite()
         {
-            cityBox.IsReadOnly = false;
-            stateBox.IsReadOnly = false;
-            cityBox.IsReadOnly = false;
-            cityNotesBox.IsReadOnly = false;
+            cityCBox.IsHitTestVisible = true;
         }
         private void SetRecruiterBoxesToReadOnly()
         {
@@ -347,14 +551,42 @@ namespace JobTrackerBeta
             recLinkBox.IsReadOnly = false;
         }
 
+        #endregion
+
+        #region Tool functions
+
         private void ReinitializeCurrentJob()
         {
             jobsModel = new JobsModel();
             jobsModel.SelectedJob = jobsModel.AllJobs.Where(x => x.CompanyId == SelectedJobID).FirstOrDefault();
         }
 
+        private bool CheckPositionSelected(string boxSelection)
+        {
+            if (boxSelection == "Add Position")
+            {
+                return true;
+            }
+            if (boxSelection == "Add Location")
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        #endregion
+
+
+
 
         #region Hyperlink Functionality Event Handlers
+
+        /*
+         * I copied this code from another resource online. Its intent was to allow for an interactive hyperlink inside 
+         * of a textbox. I have yet to make it work though. Lower priority as of right now.
+         * 
+         */
         private bool _hasValidURI;
 
         public bool HasValidURI
@@ -386,5 +618,20 @@ namespace JobTrackerBeta
             }
         }
         #endregion
+
+
+        private void Hyperlink_Requested(object sender, RequestNavigateEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(jobsModel?.SelectedJob.JobLink));
+                e.Handled = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Sorry but that link is invalid. Try copying and pasting it into your browser!", "Error", MessageBoxButton.OK);
+            }
+        }
+
     }
 }

@@ -128,5 +128,34 @@ namespace JobTrackerBeta
             ratingChart.Visibility = Visibility.Hidden;
 
         }
+
+
+
+        // Code to add funtionality for a rating ComboBox instead of a textbox
+
+        //private void CityRatings_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    int x = 0;
+        //    List<string> cityRating = new List<string>();
+        //    while (x < 11)
+        //    {
+        //        cityRating.Add(x.ToString());
+        //        x++;
+        //    }
+        //    // get combobox ref
+        //    var cityRatingCBox = sender as ComboBox;
+
+        //    // assign itemsource to list above
+        //    cityRatingCBox.ItemsSource = cityRating;
+        //}
+        //private void CityRatings_Changed(object sender, SelectionChangedEventArgs e)
+        //{
+        //    //int newCityRating = int.Parse(cityRatingCBox.SelectedValue.ToString());
+        //    //jobsModel.LinkedLocation.CityRating = newCityRating;
+        //    //string cityRatingString = cityRatingCBox.SelectedValue.ToString() + ": " + jobsModel.LinkedLocation.RatingConverted;
+        //    //cityRatingBox.Text = cityRatingString;
+
+        //}
+        // <ComboBox Height = "20" Width="50" Margin="-50,0,0,0" IsEditable="True" IsReadOnly="True" Name="cityRatingCBox" Loaded="CityRatings_Loaded" SelectionChanged="CityRatings_Changed"/>
     }
 }

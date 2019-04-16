@@ -12,8 +12,8 @@ namespace JobSearchLibrary
 {
     public class SQLConnections
     {
-        //public string strConn = @"Data Source=DESKTOP-CFGVQLT\SQLEXPRESS01;Database=JobSearch;integrated security=SSPI;MultipleActiveResultSets=true;";
-        public string strConn = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=JobSearch;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public string strConn = @"Data Source=DESKTOP-CFGVQLT\SQLEXPRESS01;Database=JobSearch;integrated security=SSPI;MultipleActiveResultSets=true;";
+        //public string strConn = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=JobSearch;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         #region Insert Query Statements
 
@@ -283,19 +283,19 @@ namespace JobSearchLibrary
                 sqlConnection.Open();
 
                 SqlDataReader reader = sqlComm.ExecuteReader();
-                
-                    while (reader.Read())
+
+                while (reader.Read())
+                {
+                    Position position = new Position()
                     {
-                        Position position = new Position()
-                        {
-                            PositionID = int.Parse(reader["PositionID"].ToString()),
-                            JobTitle = reader["JobTitle"].ToString(),
+                        PositionID = int.Parse(reader["PositionID"].ToString()),
+                        JobTitle = reader["JobTitle"].ToString(),
 
-                        };
+                    };
 
-                        allPositions.Add(position);
-                    }
-                    return allPositions;
+                    allPositions.Add(position);
+                }
+                return allPositions;
             }
         }
 
@@ -341,16 +341,16 @@ namespace JobSearchLibrary
                 sqlConnection.Open();
 
                 SqlDataReader reader = sqlComm.ExecuteReader();
-                
-                    while (reader.Read())
+
+                while (reader.Read())
+                {
+                    Rating rating = new Rating
                     {
-                        Rating rating = new Rating
-                        {
-                            RatingDescription = reader["RatingDescription"].ToString()
-                        };
-                        allRatings.Add(rating);
-                    }
-                    return allRatings;
+                        RatingDescription = reader["RatingDescription"].ToString()
+                    };
+                    allRatings.Add(rating);
+                }
+                return allRatings;
             }
         }
 
@@ -365,20 +365,20 @@ namespace JobSearchLibrary
                 sqlConnection.Open();
 
                 SqlDataReader reader = sqlComm.ExecuteReader();
-                
-                    while (reader.Read())
+
+                while (reader.Read())
+                {
+                    Recruiter recruiter = new Recruiter()
                     {
-                        Recruiter recruiter = new Recruiter()
-                        {
-                            RecruiterId = int.Parse(reader["RecruiterID"].ToString()),
-                            Email = reader["Email"].ToString(),
-                            RecruiterName = reader["Recruiter_Name"].ToString(),
-                            PhoneNumber = reader["PhoneNumber"].ToString(),
-                            LinkedInLink = reader["LinkedInLink"].ToString()
-                        };
-                        allRecruiters.Add(recruiter);
-                    }
-                    return allRecruiters;
+                        RecruiterId = int.Parse(reader["RecruiterID"].ToString()),
+                        Email = reader["Email"].ToString(),
+                        RecruiterName = reader["Recruiter_Name"].ToString(),
+                        PhoneNumber = reader["PhoneNumber"].ToString(),
+                        LinkedInLink = reader["LinkedInLink"].ToString()
+                    };
+                    allRecruiters.Add(recruiter);
+                }
+                return allRecruiters;
             }
         }
         #endregion
@@ -409,7 +409,6 @@ namespace JobSearchLibrary
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -436,7 +435,6 @@ namespace JobSearchLibrary
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -462,10 +460,10 @@ namespace JobSearchLibrary
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
+
         public string GetCityName(int? id)
         {
             try
@@ -488,11 +486,10 @@ namespace JobSearchLibrary
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
         }
+
         public string GetRatingString(int? id)
         {
 
@@ -516,7 +513,6 @@ namespace JobSearchLibrary
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -538,16 +534,13 @@ namespace JobSearchLibrary
                     string cityName = x.ToString();
 
 
-
                     return cityName;
                 }
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
         }
         public string GetStateCapital(int? id)
         {
@@ -572,12 +565,35 @@ namespace JobSearchLibrary
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
         }
 
+        public int GetCompanyRatingID(string rating)
+        {
+            try
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(strConn))
+                {
+                    SqlCommand sqlComm = new SqlCommand("SELECT RatingID FROM Rating where RatingDescription = @rating", sqlConnection);
+
+                    sqlComm.Parameters.AddWithValue("@rating", rating);
+
+
+                    sqlComm.Connection = sqlConnection;
+                    sqlConnection.Open();
+                    var x = sqlComm.ExecuteScalar();
+                    int ratingID = int.Parse(x.ToString());
+
+
+                    return ratingID;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
         #endregion
@@ -602,7 +618,116 @@ namespace JobSearchLibrary
                     sqlConnection.Open();
                     sqlComm.ExecuteNonQuery();
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
+        public void UpdateJobWithRecruiterID(int recruiterId, int companyId)
+        {
+                try
+                {
+                    using (SqlConnection sqlConnection = new SqlConnection(strConn))
+                    {
+                        SqlCommand sqlComm = new SqlCommand("UPDATE [dbo].[Jobs] SET [RecruiterID] = @RecruiterID WHERE CompanyID = @CompanyID", sqlConnection);
+
+                        sqlComm.Parameters.AddWithValue("@RecruiterID", recruiterId);
+                        sqlComm.Parameters.AddWithValue("@CompanyID", companyId);
+
+
+                        sqlComm.Connection = sqlConnection;
+                        sqlConnection.Open();
+                        sqlComm.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+        }
+
+        public void UpdateJobLocationID(int locationId, int companyId)
+        {
+
+            try
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(strConn))
+                {
+                    SqlCommand sqlComm = new SqlCommand("UPDATE [dbo].[Jobs] SET LocationId = @LocationID WHERE CompanyID = @CompanyID", sqlConnection);
+
+                    sqlComm.Parameters.AddWithValue("@LocationID", locationId);
+                    sqlComm.Parameters.AddWithValue("@CompanyID", companyId);
+
+                    sqlComm.Connection = sqlConnection;
+                    sqlConnection.Open();
+                    sqlComm.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public void UpdateJobInformation(Jobs job)
+        {
+
+            try
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(strConn))
+                {
+                    SqlCommand sqlComm = new SqlCommand("UPDATE [dbo].[Jobs] SET CompanyName = @CompanyName, PositionID = @PositionID, SalaryRange = @Salary, RatingID = @RatingID, CEOName = @CEOName, MissionStatement = @Mission, Benefits = @Benefits, Comments = @Comments, JobLink = @JobLink WHERE CompanyID = @CompanyID", sqlConnection);
+
+                    sqlComm.Parameters.AddWithValue("@CompanyID", job.CompanyId);
+                    sqlComm.Parameters.AddWithValue("@CompanyName", job.CompanyName);
+                    sqlComm.Parameters.AddWithValue("@PositionID", job.PositionId);
+                    sqlComm.Parameters.AddWithValue("@Salary", job.SalaryRange);
+                    sqlComm.Parameters.AddWithValue("@RatingID", job.RatingId);
+                    sqlComm.Parameters.AddWithValue("@CEOName", job.CEOName);
+                    sqlComm.Parameters.AddWithValue("@Mission", job.MissionStatement);
+                    sqlComm.Parameters.AddWithValue("@Benefits", job.Benefits);
+                    sqlComm.Parameters.AddWithValue("@Comments", job.Comments);
+                    sqlComm.Parameters.AddWithValue("@JobLink", job.JobLink);
+
+                    sqlComm.Connection = sqlConnection;
+                    sqlConnection.Open();
+                    sqlComm.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+
+
+        #endregion
+
+        #region Delete records from database
+
+        public void DeleteSpecificJobWithRecruiter(int companyId, int recruiterId)
+        {
+            try
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(strConn))
+                {
+                    SqlCommand sqlComm = new SqlCommand("DELETE FROM Jobs WHERE CompanyID = @CompanyID", sqlConnection);
+                    sqlComm.Parameters.AddWithValue("@CompanyID", companyId);
+
+                    sqlComm.Connection = sqlConnection;
+                    sqlConnection.Open();
+                    sqlComm.ExecuteNonQuery();
+                
+                    sqlComm = new SqlCommand("DELETE FROM Recruiters WHERE RecruiterID = @RecruiterID", sqlConnection);
+                    sqlComm.Parameters.AddWithValue("@RecruiterID", recruiterId);
+                    
+                    sqlComm.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
@@ -611,11 +736,26 @@ namespace JobSearchLibrary
             }
         }
 
+        public void DeleteSpecificJob(int companyId)
+        {
+            try
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(strConn))
+                {
+                    SqlCommand sqlComm = new SqlCommand("DELETE FROM Jobs WHERE CompanyID = @CompanyID", sqlConnection);
+                    sqlComm.Parameters.AddWithValue("@CompanyID", companyId);
 
+                    sqlComm.Connection = sqlConnection;
+                    sqlConnection.Open();
+                    sqlComm.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-        #endregion
-
-        #region Delete records from database
         public void DeleteLastJobRecord()
         {
             try

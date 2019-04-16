@@ -69,7 +69,7 @@ namespace JobTrackerBeta.ViewModel
                 _selectedJob = value;
                 NotifyPropertyChanged();
                 FillLinkedLocation();
-                FillLinkedRecrutier();
+                FillLinkedRecruiter();
 
             }
         }
@@ -107,9 +107,9 @@ namespace JobTrackerBeta.ViewModel
             }
             set
             {
-                _linkedRecruiter = value;
                 NotifyPropertyChanged();
             }
+           
         }
 
 
@@ -117,23 +117,18 @@ namespace JobTrackerBeta.ViewModel
         private void FillLinkedLocation()
         {
             LocationViewModel locationView = new LocationViewModel();
-            Jobs job = this.SelectedJob;
-            var location = locationView.AllLocations.Where(x => x.LocationId == job.LocationId);
-            foreach (var item in location)
-            {
-                _linkedLocation = item;
-            }
+            _linkedLocation = locationView.AllLocations.Where(x => x.LocationId == SelectedJob.LocationId).FirstOrDefault();
+
         }
-        private void FillLinkedRecrutier()
+        private void FillLinkedRecruiter()
         {
             RecruiterModel recruiterModel = new RecruiterModel();
-            Jobs job = this.SelectedJob;
-            var recruiter = recruiterModel.AllRecruiters.Where(x => x.RecruiterId == job.RecruiterId);
-            foreach(var item in recruiter)
+            if (SelectedJob.RecruiterId != null)
             {
-                _linkedRecruiter = item;
+                _linkedRecruiter = recruiterModel.AllRecruiters.Where(x => x.RecruiterId == SelectedJob.RecruiterId).FirstOrDefault();
             }
-            
+            else
+                LinkedRecruiter = null;
         }
 
 

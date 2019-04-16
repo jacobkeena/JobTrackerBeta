@@ -8,6 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="900"
       Title="ViewJobs">
+
   <Page.Resources>
     <vm:JobsModel x:Key="JobsModel"/>
   </Page.Resources>
@@ -87,7 +88,7 @@
               </DockPanel>
               <DockPanel Grid.Row="2" LastChildFill="True">
                 <Label Content="Position:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <ComboBox Name="positionCBox" Style="{DynamicResource ComboBoxDynamic}"/>
+                <ComboBox Name="positionCBox" Style="{DynamicResource ComboBoxDynamic}" Focusable="False" DropDownOpened="PositionBox_Loaded" SelectionChanged="PositionBox_Changed"/>
               </DockPanel>
               <DockPanel Grid.Row="3" LastChildFill="True">
                 <Label Content="Salary Range:" FontWeight="DemiBold" VerticalAlignment="Center"/>
@@ -95,7 +96,7 @@
               </DockPanel>
               <DockPanel Grid.Row="4" LastChildFill="True">
                 <Label Content="Rating:" FontWeight="DemiBold" VerticalAlignment="Center"/>
-                <ComboBox Style="{DynamicResource ComboBoxDynamic}" Name="ratingCBox" IsManipulationEnabled="False" />
+                <ComboBox Style="{DynamicResource ComboBoxDynamic}" Name="ratingCBox" Focusable="False" Loaded="RatingBox_Loaded" />
               </DockPanel>
               <DockPanel Grid.Row="5" LastChildFill="True">
                 <Label Content="CEO Name:" FontWeight="DemiBold" VerticalAlignment="Center"/>
@@ -170,11 +171,11 @@
                 </DockPanel>
                 <DockPanel Grid.Row="1" Grid.Column="0" LastChildFill="True">
                   <Label Content="City:" HorizontalAlignment="Left" FontWeight="Bold" VerticalAlignment="Center" FontSize="10" Margin="0,0,6,0"/>
-                  <TextBox Name="cityBox" Style="{DynamicResource OneLineTextBoxDynamic}"/>
+                  <ComboBox Style="{DynamicResource ComboBoxDynamic}" Name="cityCBox" Focusable="False" Loaded="CityBox_Loaded" SelectionChanged="CityBox_Changed"/>
                 </DockPanel>
                 <DockPanel Grid.Row="2" Grid.Column="0" LastChildFill="True">
-                  <Label Content="State:" VerticalAlignment="Center" FontWeight="Bold" FontSize="10"/>
-                  <TextBox Name="stateBox" Style="{DynamicResource OneLineTextBoxDynamic}"/>
+                  <Label Content="State:" VerticalAlignment="Center" FontWeight="Bold" FontSize="10" Margin="0,0,10,0"/>
+                  <TextBox Style="{DynamicResource OneLineTextBoxDynamic}" Name="stateBox" />
                 </DockPanel>
                 <DockPanel Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" LastChildFill="True">
                   <Label Content="City Rating:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="9"/>

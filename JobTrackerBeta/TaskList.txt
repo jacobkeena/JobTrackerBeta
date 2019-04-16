@@ -5,23 +5,19 @@
 TO DO:
 
 
-
-- create update function in SQLConnections for Locations and for Jobs
-
 - create a admin page that displays all positions and locations. If they want to modify them, great! if they want to delete them,
 create a message that shows where jobs are currently assigned those positions (sql will throw exception if deleting a position that a job 
 has w/ a FK)
 
 
 - also should really consider using stored procedures. writing this all is annoying
-                          
-
+                
 
 *************************************************
 IN PROGRESS:
-
                
-- Set location boxes equal to jobModel.LinkedLocation.[fields]
+
+- when changing jobs. if a job doesn't have a recruiter linked to it. it saves the last recruiter and displays it...working on the fix
 
               
 
@@ -41,8 +37,12 @@ FINISHED:
 -recruiter table is messed up for some reason.
 also is returning null recruiterID throwing off the job selection?
 once get all jobs can return recruiterid (if it exists) it should fix my FillLinkedRecruiter method
+- Set location boxes equal to jobModel.LinkedLocation.[fields]
 
+-set delete statement for job
+- create update function in SQLConnections for Locations and for Jobs
 
+- write update statement for job
 **************************************************
 COOL FUNCTIONALITY IDEAS:
 
@@ -60,3 +60,6 @@ ABANDONED IDEAS
 - create edit page as a duplicate of viewjobs.xaml. Create with textboxes / comboboxes where user can update info 
 (This seemed to cumbersome. Decided to change textBlocks to textBoxes and set them to readonly=false on edit mode)
 
+- change location entry rating box to a combo box (code is in locationentry.xaml.cs) just need to alter it to fit
+(allowing users to edit a location in the Job View was a bad idea all around. They may think that it will only apply to that one job, however, changes 
+would reflect to all jobs that the location is linked to.)
