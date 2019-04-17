@@ -128,7 +128,7 @@ namespace JobTrackerBeta.ViewModel
                 _linkedRecruiter = recruiterModel.AllRecruiters.Where(x => x.RecruiterId == SelectedJob.RecruiterId).FirstOrDefault();
             }
             else
-                LinkedRecruiter = null;
+                _linkedRecruiter = null;
         }
 
 

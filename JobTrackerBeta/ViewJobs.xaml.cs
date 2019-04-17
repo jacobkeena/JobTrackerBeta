@@ -50,6 +50,7 @@ namespace JobTrackerBeta
 
         private int SelectedJobID { get; set; }
         private bool IsRecruiterInitialized { get; set; }
+       
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -99,6 +100,7 @@ namespace JobTrackerBeta
             {
                 Recruiter newRecruiter = new Recruiter();
 
+                newRecruiter.RecruiterId = jobsModel.LinkedRecruiter.RecruiterId;
                 newRecruiter.RecruiterName = recNameBox.Text;
                 newRecruiter.Email = recEmailBox.Text;
                 newRecruiter.LinkedInLink = recLinkBox.Text;
@@ -141,9 +143,9 @@ namespace JobTrackerBeta
                 jobsModel.NewJobEntry.RatingId = ratingId;
 
                 // Validation
-                if (string.IsNullOrEmpty(companyNameBox.Text) || !string.IsNullOrEmpty(positionCBox.Text) || !string.IsNullOrEmpty(ratingCBox.Text))
+                if (string.IsNullOrEmpty(companyNameBox.Text) || string.IsNullOrEmpty(positionCBox.Text) || string.IsNullOrEmpty(ratingCBox.Text))
                 {
-                    MessageBox.Show("Please make sure Company Name, Postion, Rating, and Location are all filled out.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Please make sure Company Name, Postion, and Rating are all filled out.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -156,7 +158,6 @@ namespace JobTrackerBeta
             SetRecruiterBoxesToReadOnly();
             SetLocationBoxToReadOnly();
             SetJobBoxesToReadOnly();
-
         }
 
         //Cancel Button
@@ -189,8 +190,7 @@ namespace JobTrackerBeta
                     SetLocationBoxToReadOnly();
                     SetJobBoxesToReadOnly();
 
-                    jobsModel = new JobsModel();
-                    lbDisplayJobs.SelectedIndex = -1;
+                    ReinitializeListBox();
                 }
                 if (result == MessageBoxResult.No)
                 {
@@ -206,10 +206,12 @@ namespace JobTrackerBeta
                         SetLocationBoxToReadOnly();
                         SetJobBoxesToReadOnly();
 
-                        jobsModel = new JobsModel();
-                        lbDisplayJobs.SelectedIndex = -1;
+                        ReinitializeListBox();
                     }
+                    else
+                        return;
                 }
+                
             }
             else
             {
@@ -225,8 +227,7 @@ namespace JobTrackerBeta
                     SetLocationBoxToReadOnly();
                     SetJobBoxesToReadOnly();
 
-                    jobsModel = new JobsModel();
-                    lbDisplayJobs.SelectedIndex = -1;
+                    ReinitializeListBox();
                 }
                 else
                     return;
@@ -467,6 +468,35 @@ namespace JobTrackerBeta
             }
 
         }
+        private void ClearAllTextBoxes()
+        {
+            companyNameBox.Clear();
+            commentsBox.Clear();
+            positionCBox.SelectedItem = null;
+            positionCBox.Text = ""; // Position box will not display null value for some reason. This was the easy fix
+            salaryBox.Clear();
+            ceoNameBox.Clear();
+            commentsBox.Clear();
+            ratingCBox.SelectedItem = null;
+            missionStatementBox.Clear();
+            benefitsBox.Clear();
+            runLinkBox.Clear();
+
+            cityCBox.SelectedItem = null;
+            stateBox.Clear();
+            cityNotesBox.Clear();
+            cityRatingBox.Clear();
+
+            stateCapitalBlock.Text = null;
+            largestCityBlock.Text = null;
+            recNameBox.Clear();
+            recEmailBox.Clear();
+            recPhoneBox.Clear();
+            recLinkBox.Clear();
+            IsRecruiterInitialized = false;
+            SelectedJobID = 0;
+
+        }
 
         private void HideAllEditingButtons()
         {
@@ -559,6 +589,13 @@ namespace JobTrackerBeta
         {
             jobsModel = new JobsModel();
             jobsModel.SelectedJob = jobsModel.AllJobs.Where(x => x.CompanyId == SelectedJobID).FirstOrDefault();
+        }
+
+        private void ReinitializeListBox()
+        {
+            jobsModel = new JobsModel();
+            lbDisplayJobs.ItemsSource = jobsModel.AllJobs.Select(x => x.CompanyName);
+            ClearAllTextBoxes();
         }
 
         private bool CheckPositionSelected(string boxSelection)
