@@ -21,9 +21,9 @@ namespace JobSearchLibrary
         public void NewJob(Jobs job)
         {
             string sqlQuery;
-            sqlQuery = job.RecruiterId.HasValue ? "INSERT INTO[Jobs] (CompanyName, PositionID, LocationID, SalaryRange, RatingID, CEOName, MissionStatement, Benefits, Comments, RecruiterID, JobLink)" +
-                " VALUES (@CompanyName, @PositionID, @LocationID, @SalaryRange, @RatingID, @CEOName,@MissionStatement,@Benefits,@Comments,@RecruiterID,@JobLink)" : "INSERT INTO[Jobs] (CompanyName, PositionID, LocationID, SalaryRange, RatingID, CEOName, MissionStatement, Benefits, Comments, JobLink)" +
-                " VALUES (@CompanyName, @PositionID, @LocationID, @SalaryRange, @RatingID, @CEOName,@MissionStatement,@Benefits,@Comments,@JobLink)";
+            sqlQuery = job.RecruiterId.HasValue ? "INSERT INTO[Jobs] (CompanyName, PositionID, LocationID, SalaryRange, RatingID, CEOName, MissionStatement, Benefits, Comments, RecruiterID, JobLink, Date)" +
+                " VALUES (@CompanyName, @PositionID, @LocationID, @SalaryRange, @RatingID, @CEOName,@MissionStatement,@Benefits,@Comments,@RecruiterID,@JobLink, @Date)" : "INSERT INTO[Jobs] (CompanyName, PositionID, LocationID, SalaryRange, RatingID, CEOName, MissionStatement, Benefits, Comments, JobLink, Date)" +
+                " VALUES (@CompanyName, @PositionID, @LocationID, @SalaryRange, @RatingID, @CEOName,@MissionStatement,@Benefits,@Comments,@JobLink, @Date)";
             try
             {
                 using (SqlConnection sqlConnection = new SqlConnection(strConn))
@@ -40,6 +40,7 @@ namespace JobSearchLibrary
                     sqlComm.Parameters.AddWithValue("@Benefits", job.Benefits);
                     sqlComm.Parameters.AddWithValue("@Comments", job.Comments);
                     sqlComm.Parameters.AddWithValue("@JobLink", job.JobLink);
+                    sqlComm.Parameters.AddWithValue("@Date", System.DateTime.Now);
                     if (job.RecruiterId.HasValue)
                     {
                         sqlComm.Parameters.AddWithValue("@RecruiterID", job.RecruiterId);
@@ -207,7 +208,7 @@ namespace JobSearchLibrary
             List<Jobs> allJobs = new List<Jobs>();
             using (SqlConnection sqlConnection = new SqlConnection(strConn))
             {
-                SqlCommand sqlComm = new SqlCommand("SELECT CompanyID, CompanyName,LocationID,PositionId,SalaryRange,RatingId,CEOName,MissionStatement,Benefits,Comments, JobLink, RecruiterID FROM Jobs Order by CompanyId Desc", sqlConnection);
+                SqlCommand sqlComm = new SqlCommand("SELECT CompanyID, CompanyName,LocationID,PositionId,SalaryRange,RatingId,CEOName,MissionStatement,Benefits,Comments, JobLink, RecruiterID, Date FROM Jobs Order by CompanyId Desc", sqlConnection);
 
 
                 sqlComm.Connection = sqlConnection;
@@ -229,6 +230,7 @@ namespace JobSearchLibrary
                         Benefits = reader["Benefits"].ToString(),
                         Comments = reader["Comments"].ToString(),
                         JobLink = reader["JobLink"].ToString(),
+                        Date = (DateTime)reader["Date"]
                     };
                     if (!string.IsNullOrEmpty(reader["RecruiterID"].ToString()))
                     {

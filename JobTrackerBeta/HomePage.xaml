@@ -10,8 +10,8 @@
 
   <Grid Background="White">
     <Grid.RowDefinitions>
-      <RowDefinition Height="15*" />
-      <RowDefinition Height="10*" />
+      <RowDefinition Height="25*" />
+      <RowDefinition Height="auto" />
       <RowDefinition Height="55*" />
       <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
@@ -23,7 +23,7 @@
     </StackPanel>
     <StackPanel Name="GridPanel" Grid.Row="2" Orientation="Vertical">
       <TextBlock FontWeight="SemiBold" Text="Recent additions" HorizontalAlignment="Left" FontSize="14" Margin="20"/>
-      <DataGrid Name="RecentJobsGrid" Margin="0,15,30,0" HeadersVisibility="None" Width="auto" IsHitTestVisible="False" >
+      <DataGrid Name="RecentJobsGrid" Margin="15,15,30,0" HeadersVisibility="None" Width="auto" IsHitTestVisible="False" ColumnWidth="25*" AutoGeneratingColumn="OnAutoGeneratingColumn" >
       </DataGrid>
     </StackPanel>
     <StackPanel Grid.Row="3" Orientation="Vertical" Margin="40">

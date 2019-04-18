@@ -57,10 +57,10 @@
         <Label Content="Job Link" VerticalAlignment="Center" Width="55" />
         <TextBox x:Name="txtJobLink" Style="{DynamicResource OneLineTextBox}" />
       </StackPanel>
-      <StackPanel Grid.Column="1" Grid.Row="5" Grid.RowSpan="2" Orientation="Horizontal" >
+      <DockPanel Grid.Column="1" Grid.Row="5" Grid.RowSpan="2" LastChildFill="True" >
         <Label Content="Comments" VerticalAlignment="Top" />
-        <TextBox x:Name="txtComments" Style="{DynamicResource WrappedTextBox}"/>
-      </StackPanel>
+        <TextBox x:Name="txtComments" Style="{DynamicResource WrappedTextBoxDynamic}"/>
+      </DockPanel>
      
       <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
         <Label Content="Rating" VerticalAlignment="Center" Width="100" />
@@ -71,16 +71,16 @@
         <Label Content="CEO Name" VerticalAlignment="Center" Width="100" />
         <TextBox x:Name="txtCEO" Style="{DynamicResource OneLineTextBox}" />
       </StackPanel>
-      <StackPanel Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" Orientation="Horizontal">
+      <DockPanel Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" LastChildFill="True" >
         <Label VerticalAlignment="Top">
           <TextBlock TextWrapping="Wrap" Width="55">Mission Statement</TextBlock>
         </Label>
-        <TextBox x:Name="txtMissionStatement" Style="{DynamicResource WrappedTextBox}"/>
-      </StackPanel>
-      <StackPanel Grid.Column="0" Grid.Row="7" Grid.RowSpan="2"  Orientation="Horizontal">
+        <TextBox x:Name="txtMissionStatement" Style="{DynamicResource WrappedTextBoxDynamic}"/>
+      </DockPanel>
+      <DockPanel Grid.Column="0" Grid.Row="7" Grid.RowSpan="2"  LastChildFill="True">
         <Label Content="Benefits" VerticalAlignment="Top" Width="66"/>
-        <TextBox x:Name="txtBenefits" Style="{DynamicResource WrappedTextBox}"/>
-      </StackPanel>
+        <TextBox x:Name="txtBenefits" Style="{DynamicResource WrappedTextBoxDynamic}"/>
+      </DockPanel>
       <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal">
         <Label Content="Recruiter Information" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="13"/>
         <Label Content="(Optional)" FontSize="10" VerticalAlignment="Bottom" Foreground="Gray"/>
@@ -99,10 +99,10 @@
         </Label>
         <TextBox Name="txtRecruiterPhoneNumber" Style="{DynamicResource OneLineTextBox}" />
       </StackPanel>
-      <StackPanel Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Orientation="Horizontal">
+      <DockPanel Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" LastChildFill="True">
         <Label Content="LinkedIn:" VerticalAlignment="Top" Width="54" FontSize="11"/>
-        <TextBox x:Name="txtLinkedIn" Style="{DynamicResource WrappedTextBox}"/>
-      </StackPanel>
+        <TextBox x:Name="txtLinkedIn" Style="{DynamicResource WrappedTextBoxDynamic}"/>
+      </DockPanel>
       <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
         <TextBlock Name="canceledMessage" Text="Canceled: Last submission was not saved" Foreground="Red" FontWeight="Bold" VerticalAlignment="Center"/>
       </StackPanel>

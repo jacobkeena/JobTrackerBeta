@@ -40,14 +40,9 @@ namespace JobTrackerBeta
                               where j.LocationId == l.LocationId
                               where j.PositionId == p.PositionID
                               orderby j.CompanyId descending
-                              select new { j.CompanyName, l.City, p.JobTitle, j.JobLink }).Take(10).ToList();
-
+                              select new { j.Date, j.CompanyName, l.City, p.JobTitle, j.JobLink }).Take(10).ToList();
 
             RecentJobsGrid.ItemsSource = recentJobs;
-            //RecentJobsGrid.Columns[0].Width = RecentJobsGrid.Width / 5;
-            //RecentJobsGrid.Columns[1].Width = RecentJobsGrid.Width / 5;
-            //RecentJobsGrid.Columns[2].Width = RecentJobsGrid.Width / 5;
-            //RecentJobsGrid.Columns[3].Width = RecentJobsGrid.Width / 5;
 
         }
 
@@ -62,6 +57,12 @@ namespace JobTrackerBeta
                 {
                     MessageBox.Show("Sorry but that link is invalid. Try copying and pasting it into your browser!", "Error", MessageBoxButton.OK);
                 }
+        }
+
+        private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyType == typeof(System.DateTime))
+                (e.Column as DataGridTextColumn).Binding.StringFormat = "MM/dd/yyyy";
         }
     }
 }

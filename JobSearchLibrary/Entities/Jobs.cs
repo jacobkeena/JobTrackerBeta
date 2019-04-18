@@ -24,6 +24,7 @@ namespace JobSearchLibrary.Entities
         public string Comments { get; set; }
         public string JobLink { get; set; }
         public int? RecruiterId { get; set; }
+        public DateTime Date { get; set; }
 
         public string Position
         {
