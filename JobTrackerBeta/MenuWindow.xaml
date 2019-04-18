@@ -1,0 +1,60 @@
+﻿<Window x:Class="JobTrackerBeta.MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JobTrackerBeta"
+        mc:Ignorable="d"
+        Title="MenuWindow" Height="650" Width="1000" Loaded="MenuWindow_Loaded">
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="auto" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <Grid Grid.Column="0" Background="LightGray">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <Button Style="{DynamicResource MenuButton}" Content="Home" Click="HomeButton_Clicked">
+        </Button>
+      </StackPanel>
+      <StackPanel Grid.Row="2" Orientation="Vertical">
+        <TextBox Style="{DynamicResource SearchBox}" VerticalAlignment="Center"/>
+      </StackPanel>
+      <StackPanel Grid.Row="3" Orientation="Horizontal">
+        <Button Style="{DynamicResource MenuButton}" Content="View Jobs"
+                Click="ViewJobButton_Click"/>
+      </StackPanel>
+      <StackPanel Grid.Row="4" Orientation="Horizontal">
+        <Button Style="{DynamicResource MenuButton}" Content="New Job"
+                Click="NewJobButton_Click" />
+      </StackPanel>
+      <StackPanel Grid.Row="5" Orientation="Horizontal">
+        <Button Style="{DynamicResource MenuButton}" Content="New Location" Click="NewLocationButton_Click"/>
+      </StackPanel>
+      <StackPanel Grid.Row="6" Orientation="Horizontal">
+        <Button Style="{DynamicResource MenuButton}" Content="Manage" 
+                Click="ManageButton_Click"/>
+      </StackPanel>
+    </Grid>
+
+    <DockPanel Grid.Column="1">
+      <Frame Name="PopulatePage" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Top" NavigationUIVisibility="Hidden">
+      </Frame>
+    </DockPanel>
+
+  </Grid>
+  
+  
+</Window>

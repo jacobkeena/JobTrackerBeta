@@ -10,21 +10,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace JobTrackerBeta
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MenuWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MenuWindow : Window
     {
-        public MainWindow()
+        public MenuWindow()
         {
             InitializeComponent();
         }
+        private void MenuWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            PopulatePage.Navigate(new System.Uri("HomePage.xaml",
+    UriKind.RelativeOrAbsolute));
+        }
+        private void HomeButton_Clicked(object sender, RoutedEventArgs e)
+        {
 
+            PopulatePage.Navigate(new System.Uri("HomePage.xaml",
+             UriKind.RelativeOrAbsolute));
+        }
         private void NewLocationButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -47,5 +56,11 @@ namespace JobTrackerBeta
         {
             PopulatePage.Navigate(new System.Uri("ViewLocations.xaml", UriKind.RelativeOrAbsolute));
         }
+        private void ManageButton_Click(object sender, RoutedEventArgs e)
+        {
+            PopulatePage.Navigate(new System.Uri("ViewLocations.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        
     }
 }

@@ -17,7 +17,6 @@ has w/ a FK)
 IN PROGRESS:
                
 
-- when changing jobs. if a job doesn't have a recruiter linked to it. it saves the last recruiter and displays it...working on the fix
 
               
 
@@ -43,6 +42,9 @@ once get all jobs can return recruiterid (if it exists) it should fix my FillLin
 - create update function in SQLConnections for Locations and for Jobs
 
 - write update statement for job
+
+- when changing jobs. if a job doesn't have a recruiter linked to it. it saves the last recruiter and displays it...working on the fix
+
 **************************************************
 COOL FUNCTIONALITY IDEAS:
 
