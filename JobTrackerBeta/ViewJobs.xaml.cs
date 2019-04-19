@@ -397,6 +397,7 @@ namespace JobTrackerBeta
                 {
                     NavigationService nav = NavigationService.GetNavigationService(this);
                     nav.Navigate(new System.Uri("LocationEntry.xaml", UriKind.RelativeOrAbsolute));
+                    return;
                 }
                 else
                 {
