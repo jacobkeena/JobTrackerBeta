@@ -61,8 +61,14 @@
     <Compile Include="HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Manage.xaml.cs">
+      <DependentUpon>Manage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MenuWindow.xaml.cs">
       <DependentUpon>MenuWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchResults.xaml.cs">
+      <DependentUpon>SearchResults.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewJobs.xaml.cs">
       <DependentUpon>ViewJobs.xaml</DependentUpon>
@@ -106,6 +112,10 @@
     <Compile Include="LocationEntry.xaml.cs">
       <DependentUpon>LocationEntry.xaml</DependentUpon>
     </Compile>
+    <Page Include="Manage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MenuWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceDictionaries\WrappedTextBoxDynamic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchResults.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

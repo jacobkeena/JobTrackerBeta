@@ -25,9 +25,9 @@
               <ColumnDefinition Width="10*" />
             </Grid.ColumnDefinitions>
             <DockPanel Grid.Column="0" LastChildFill="True">
-            <TextBox VerticalAlignment="Center"
+              <TextBox VerticalAlignment="Center"
                        HorizontalAlignment="Left"
-                       Text="Search..."
+                      Text="Search..."
                        Foreground="LightGray"
                        FontSize="10"
                      BorderThickness="0"/>

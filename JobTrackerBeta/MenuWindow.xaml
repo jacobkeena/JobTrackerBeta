@@ -30,7 +30,17 @@
         </Button>
       </StackPanel>
       <StackPanel Grid.Row="2" Orientation="Vertical">
-        <TextBox Style="{DynamicResource SearchBox}" VerticalAlignment="Center"/>
+        <TextBox Style="{DynamicResource SearchBox}" VerticalAlignment="Center" GotFocus="SearchBox_Clicked"/>
+      </StackPanel>
+      <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <TextBox HorizontalAlignment="Center"
+                 Width="130"
+                 Height="18"
+                       FontSize="10"
+                     BorderThickness="0"
+                 Margin="11,2,0,0" 
+                 Visibility="Hidden" Name="SearchBox" LostFocus="SearchBox_Unfocused"/>
+        <Button Height="22" Width="20" VerticalAlignment="Center" Click="SearchButton_Clicked" Opacity="0" BorderThickness="0" />
       </StackPanel>
       <StackPanel Grid.Row="3" Orientation="Horizontal">
         <Button Style="{DynamicResource MenuButton}" Content="View Jobs"

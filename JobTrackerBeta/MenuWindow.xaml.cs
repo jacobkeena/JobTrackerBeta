@@ -52,15 +52,33 @@ namespace JobTrackerBeta
             PopulatePage.Navigate(new System.Uri("ViewJobs.xaml", UriKind.RelativeOrAbsolute));
         }
 
-        private void ViewLocationsButton_Click(object sender, RoutedEventArgs e)
-        {
-            PopulatePage.Navigate(new System.Uri("ViewLocations.xaml", UriKind.RelativeOrAbsolute));
-        }
+      
         private void ManageButton_Click(object sender, RoutedEventArgs e)
         {
-            PopulatePage.Navigate(new System.Uri("ViewLocations.xaml", UriKind.RelativeOrAbsolute));
+            PopulatePage.Navigate(new System.Uri("Manage.xaml", UriKind.RelativeOrAbsolute));
         }
 
-        
+        private void SearchBox_Clicked(object sender, RoutedEventArgs e)
+        {
+            SearchBox.Visibility = Visibility.Visible;
+            SearchBox.Focus();
+        }
+
+        private void SearchBox_Unfocused(object sender, RoutedEventArgs e)
+        {
+            //SearchBox.Visibility = Visibility.Hidden;
+            //SearchBox.Clear();
+        }
+
+        private void SearchChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void SearchButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            PopulatePage.Navigate(new System.Uri("SearchResults.xaml", UriKind.RelativeOrAbsolute));
+
+        }
     }
 }

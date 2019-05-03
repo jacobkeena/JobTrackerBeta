@@ -8,7 +8,7 @@
         <ControlTemplate>
           <Grid>
 
-            <Button FontFamily="{TemplateBinding FontFamily}" Background="SlateGray"
+            <Button FontFamily="{TemplateBinding FontFamily}" Background="LightGray"
             Content="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}"
             FontSize="{TemplateBinding FontSize}"
                        FontWeight="Bold"
