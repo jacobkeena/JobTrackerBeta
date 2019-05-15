@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Manage">
 
-    <Grid Background="White">
+  <Grid Background="White">
     <Grid.RowDefinitions>
       <RowDefinition Height="10*" />
       <RowDefinition Height="10*" />
@@ -16,6 +16,64 @@
       <RowDefinition Height="70*" />
     </Grid.RowDefinitions>
     <Label Content="Manage" FontSize="18" FontWeight="Bold" Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,0,0,0" />
+
+
+    <Grid Grid.Row="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition />
+        <ColumnDefinition />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+      <DockPanel Grid.Column="0" LastChildFill="True">
+        <Label Name="Column0Label" FontWeight="SemiBold" VerticalAlignment="Center"/>
+        <TextBox Name="Column0TextBox" Width="auto" Height="22" Margin="0,0,10,0" />
+      </DockPanel>
+      <DockPanel Grid.Column="1" LastChildFill="True">
+        <Label Name="Column1Label"  FontWeight="SemiBold" VerticalAlignment="Center"/>
+        <TextBox Name="Column1TextBox" Width="auto" Height="22" Margin="0,0,10,0" />
+      </DockPanel>
+      <DockPanel Grid.Column="2" LastChildFill="True">
+        <Label Name="Column2Label"  FontWeight="SemiBold" VerticalAlignment="Center" />
+        <TextBox Name="Column2TextBox" Width="auto" Height="22" Margin="0,0,10,0" />
+      </DockPanel>
+      <DockPanel Grid.Column="3">
+        <Button Style="{DynamicResource MyButtonStyle}" Content="Search" Width="90" Click="SearchButton_Clicked" />
+      </DockPanel>
+    </Grid>
+
+    <ListBox Grid.Row="3" Name="ResultBox" HorizontalContentAlignment="Stretch" IsHitTestVisible="True" Margin="30">
+      <ListBox.ItemTemplate>
+        <ItemContainerTemplate>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+              <ColumnDefinition />
+
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding Column1}" Grid.Column="0"  Name="infoBlockCol1"/>
+            <TextBlock Text="{Binding Column2}" Grid.Column="1" Name="infoBlockCol2"/>
+            <TextBlock Text="{Binding Column3}" Grid.Column="2" Name="infoBlockCol3"/>
+            <TextBlock Text="{Binding Column4}" Grid.Column="3" Name="infoBlockCol4"/>
+            <TextBlock Grid.Column="4" HorizontalAlignment="Right">
+    <Hyperlink Name="hyperlinkUpdate" RequestNavigate="Hyperlink_RequestNavigate">
+        <TextBlock Text="{Binding Column5}" />
+    </Hyperlink>
+</TextBlock>
+            <TextBlock Grid.Column="5" HorizontalAlignment="Right">
+    <Hyperlink Name="hyperlinkDelete" RequestNavigate="Hyperlink_RequestNavigate">
+        <TextBlock Text="{Binding Column6}" HorizontalAlignment="Right"/>
+    </Hyperlink>
+</TextBlock>
+
+          </Grid>
+        </ItemContainerTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
 
     <Grid Grid.Row="1" >
       <Grid.ColumnDefinitions>
@@ -32,65 +90,5 @@
         </ComboBox>
       </StackPanel>
     </Grid>
-    <Grid Grid.Row="2">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition />
-        <ColumnDefinition />
-        <ColumnDefinition />
-        <ColumnDefinition />
-      </Grid.ColumnDefinitions>
-      <DockPanel Grid.Column="0" LastChildFill="True">
-        <Label Name="Column0Label"  FontWeight="SemiBold" VerticalAlignment="Center"/>
-        <TextBox Name="Column0TextBox" Width="auto" Height="22" Margin="0,0,10,0" />
-      </DockPanel>
-      <DockPanel Grid.Column="1" LastChildFill="True">
-        <Label Name="Column1Label"  FontWeight="SemiBold" VerticalAlignment="Center"/>
-        <TextBox Name="Column1TextBox" Width="auto" Height="22" Margin="0,0,10,0" />
-      </DockPanel>
-      <DockPanel Grid.Column="2" LastChildFill="True">
-        <Label Name="Column2Label"  FontWeight="SemiBold" VerticalAlignment="Center" />
-        <TextBox Name="Column2TextBox" Width="auto" Height="22" Margin="0,0,10,0" />
-      </DockPanel>
-      <DockPanel Grid.Column="3">
-        <Button Style="{DynamicResource MyButtonStyle}" Content="Search" Width="90" />
-      </DockPanel>
-    </Grid>
-      
-    <DataGrid Grid.Row="3" AutoGenerateColumns="False" Height="226"
-          HorizontalAlignment="Left" Margin="10"
-          Name="dgEmp" VerticalAlignment="Top" Width="auto" ColumnWidth="*"
-          RowEditEnding="dgEmp_RowEditEnding"  CellEditEnding="dgEmp_CellEditEnding"
-          SelectionChanged="dgEmp_SelectionChanged" >
-      <DataGrid.Columns>
-        <DataGridTextColumn Binding="{Binding EmpNo}" Header="EmpNo"
-                      IsReadOnly="True" x:Name="Column1">
-        </DataGridTextColumn>
-        <DataGridTextColumn Binding="{Binding EmpName}" Header="EmpName"
-                      IsReadOnly="True" x:Name="Column2">
-        </DataGridTextColumn>
-        <DataGridTextColumn Binding="{Binding Salary, Mode=TwoWay}"
-                      Header="Salary" x:Name="Column3" IsReadOnly="True">
-        </DataGridTextColumn>
-        <DataGridTextColumn Binding="{Binding DeptNo, Mode=TwoWay}"
-                      Header="DeptNo" x:Name="Column4" IsReadOnly="True">
-        </DataGridTextColumn>
-        <DataGridTemplateColumn>
-          <DataGridTemplateColumn.CellTemplate>
-            <DataTemplate>
-              <Button Content="Update" x:Name="btnUpdate"
-                                Click="btnUpdate_Click"></Button>
-            </DataTemplate>
-          </DataGridTemplateColumn.CellTemplate>
-        </DataGridTemplateColumn>
-        <DataGridTemplateColumn>
-          <DataGridTemplateColumn.CellTemplate>
-            <DataTemplate>
-              <Button Content="Delete" x:Name="btnDelete"
-                                Click="btnDelete_Click"></Button>
-            </DataTemplate>
-          </DataGridTemplateColumn.CellTemplate>
-        </DataGridTemplateColumn>
-      </DataGrid.Columns>
-    </DataGrid>
   </Grid>
 </Page>

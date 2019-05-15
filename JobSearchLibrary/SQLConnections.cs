@@ -12,9 +12,7 @@ namespace JobSearchLibrary
 {
     public class SQLConnections
     {
-        public string strConn = @"Data Source=DESKTOP-CFGVQLT\SQLEXPRESS01;Database=JobSearch;integrated security=SSPI;MultipleActiveResultSets=true;";
-        //public string strConn = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=JobSearch;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
+        public string strConn = "Your sql string goes here";
         #region Insert Query Statements
 
 
