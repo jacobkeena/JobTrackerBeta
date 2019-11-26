@@ -30,19 +30,28 @@ namespace JobTrackerBeta
         }
         private void SetDataGrid()
         {
-            JobsModel jobsModel = new JobsModel();
-            LocationViewModel locationModel = new LocationViewModel();
-            PositionModel positionModel = new PositionModel();
+            try
+            {
 
-            var recentJobs = (from j in jobsModel.AllJobs
-                              from l in locationModel.AllLocations
-                              from p in positionModel.AllPositions
-                              where j.LocationId == l.LocationId
-                              where j.PositionId == p.PositionID
-                              orderby j.CompanyId descending
-                              select new { j.Date, j.CompanyName, l.City, p.JobTitle, j.JobLink }).Take(10).ToList();
+                JobsModel jobsModel = new JobsModel();
+                LocationViewModel locationModel = new LocationViewModel();
+                PositionModel positionModel = new PositionModel();
 
-            RecentJobsGrid.ItemsSource = recentJobs;
+                var recentJobs = (from j in jobsModel.AllJobs
+                                  from l in locationModel.AllLocations
+                                  from p in positionModel.AllPositions
+                                  where j.LocationId == l.LocationId
+                                  where j.PositionId == p.PositionID
+                                  orderby j.CompanyId descending
+                                  select new { j.Date, j.CompanyName, l.City, p.JobTitle, j.JobLink }).Take(10).ToList();
+
+                RecentJobsGrid.ItemsSource = recentJobs;
+            }
+            catch
+            {
+                RecentJobsGrid.ItemsSource = null;
+                //Added so project can still start with sql database disconnected
+            }
 
         }
 
